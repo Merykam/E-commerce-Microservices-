@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/micro-service-ecommerce/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/micro-service-ecommerce/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/micro-service-ecommerce",
+  "projects": {
+    "micro-service-ecommerce": {
+      "type": "application",
+      "root": "apps/micro-service-ecommerce",
+      "entryFile": "main",
+      "sourceRoot": "apps/micro-service-ecommerce/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/micro-service-ecommerce/tsconfig.app.json"
+      }
+    },
+    "service-authentification": {
+      "type": "application",
+      "root": "apps/service-authentification",
+      "entryFile": "main",
+      "sourceRoot": "apps/service-authentification/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/service-authentification/tsconfig.app.json"
+      }
+    },
+    "service-product": {
+      "type": "application",
+      "root": "apps/service-product",
+      "entryFile": "main",
+      "sourceRoot": "apps/service-product/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/service-product/tsconfig.app.json"
+      }
+    },
+    "service-cart": {
+      "type": "application",
+      "root": "apps/service-cart",
+      "entryFile": "main",
+      "sourceRoot": "apps/service-cart/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/service-cart/tsconfig.app.json"
+      }
+    },
+    "service-order": {
+      "type": "application",
+      "root": "apps/service-order",
+      "entryFile": "main",
+      "sourceRoot": "apps/service-order/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/service-order/tsconfig.app.json"
+      }
+    },
+    "service-payment": {
+      "type": "application",
+      "root": "apps/service-payment",
+      "entryFile": "main",
+      "sourceRoot": "apps/service-payment/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/service-payment/tsconfig.app.json"
+      }
+    }
+  }
+}
