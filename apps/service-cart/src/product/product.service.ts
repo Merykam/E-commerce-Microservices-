@@ -24,7 +24,7 @@ export class ProductService {
 
       return product;
     } catch (error) {
-      throw new Error('Failed to create product');
+      return error;
     }
   }
 
@@ -38,7 +38,7 @@ export class ProductService {
 
       return products;
     } catch (error) {
-      throw new Error('Failed to find products');
+      return error;
     }
   }
 
@@ -50,13 +50,9 @@ export class ProductService {
         },
       });
 
-      if (!product) {
-        return 'product not found';
-      }
-
       return product;
     } catch (error) {
-      throw new Error('Failed to find products');
+      return error;
     }
   }
 
@@ -95,7 +91,17 @@ export class ProductService {
 
       return product;
     } catch (error) {
-      throw new Error('Failed to delete product');
+      return error;
     }
+  }
+
+  async productExists(id: number) {
+    const product = await this.prismaSevice.product.findFirst({
+      where: {
+        id: id,
+      },
+    });
+
+    return !!product;
   }
 }
