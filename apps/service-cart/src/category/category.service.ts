@@ -23,11 +23,6 @@ export class CategoryService {
   async findAll() {
     try {
       const categories = await this.prismaService.category.findMany();
-
-      if (categories.length == 0) {
-        return 'Categories not found';
-      }
-
       return categories;
     } catch (error) {
       return error;
@@ -42,9 +37,24 @@ export class CategoryService {
         },
       });
 
-      if (!category) {
-        return 'Category not found';
-      }
+      return category;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async update(id: number, updateCategoryDto: UpdateCategoryDto) {
+    try {
+      const category = await this.prismaService.category.update({
+        where: {
+          id: id,
+        },
+        data: {
+          name: updateCategoryDto.name,
+          image: updateCategoryDto.image,
+          userId: updateCategoryDto.userId,
+        },
+      });
 
       return category;
     } catch (error) {
@@ -52,11 +62,27 @@ export class CategoryService {
     }
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+  async remove(id: number) {
+    try {
+      const category = await this.prismaService.category.delete({
+        where: {
+          id: id,
+        },
+      });
+
+      return category;
+    } catch (error) {
+      return error;
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async categoryExists(id: number) {
+    const category = await this.prismaService.category.findFirst({
+      where: {
+        id: id,
+      },
+    });
+
+    return !!category;
   }
 }

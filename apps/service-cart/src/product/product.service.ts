@@ -80,7 +80,9 @@ export class ProductService {
       });
 
       return product;
-    } catch (error) {}
+    } catch (error) {
+      return error;
+    }
   }
 
   async remove(id: number) {
