@@ -1,15 +1,15 @@
 import { IsEmail, IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class UserDTO {
-  @IsInt()
-  @IsNotEmpty()
+  @IsInt({ message: 'id should be an integer' })
+  @IsNotEmpty({ message: 'id is required' })
   id: number;
 
   @IsEmail()
-  @IsNotEmpty()
+  @IsNotEmpty({message : "Email is required"})
   email: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsString({message : "name should be a string "})
+  @IsNotEmpty({message : "Name is required"})
   name: string;
 }
