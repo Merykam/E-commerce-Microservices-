@@ -1,11 +1,18 @@
+import { IsNotEmpty } from 'class-validator';
+
 export class CreateUserDto {
-    name: string;
-    email: string;
-    password: string;
-    createdAt: Date;
-    updatedAt: Date;
-    
-    constructor(partial: Partial<CreateUserDto>) {
-        Object.assign(this, partial);
-    }
+  @IsNotEmpty({
+    message: 'Name is required',
+  })
+  name: string;
+  @IsNotEmpty({
+    message: 'Email is required',
+  })
+  email: string;
+  @IsNotEmpty({
+    message: 'Password is required',
+  })
+  password: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
