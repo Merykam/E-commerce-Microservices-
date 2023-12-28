@@ -1,5 +1,5 @@
 export class CreateCartDto {
-  readonly userId: string;
-  readonly productId: string;
+  readonly userId: number;
+  readonly productId: number;
   readonly priceTotal: number;
 }

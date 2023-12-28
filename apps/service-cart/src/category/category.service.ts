@@ -16,22 +16,40 @@ export class CategoryService {
 
       return category;
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }
 
-  findAll() {
+  async findAll() {
     try {
-      const categories = this.prismaService.category.findMany();
+      const categories = await this.prismaService.category.findMany();
+
+      if (categories.length == 0) {
+        return 'Categories not found';
+      }
 
       return categories;
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  async findOne(id: number) {
+    try {
+      const category = await this.prismaService.category.findFirst({
+        where: {
+          id: id,
+        },
+      });
+
+      if (!category) {
+        return 'Category not found';
+      }
+
+      return category;
+    } catch (error) {
+      return error;
+    }
   }
 
   update(id: number, updateCategoryDto: UpdateCategoryDto) {
