@@ -17,12 +17,15 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   orders    Order[]
+  OrderItem OrderItem[]
 }
 
 model Order {
   id         Int         @id @default(autoincrement())
   userId     Int
   user       User        @relation(fields: [userId], references: [id])
+  status     String      @default("Pending")
+  paid       Boolean     @default(false)
   orderItems OrderItem[]
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
@@ -39,10 +42,12 @@ model Product {
 
 model OrderItem {
   id        Int      @id
-  orderId   Int
-  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   Int?
+  order     Order?   @relation(fields: [orderId], references: [id])
   productId String
   product   Product  @relation(fields: [productId], references: [id])
+  userId Int
+  user   User  @relation(fields: [userId], references: [id])
   quantity  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
