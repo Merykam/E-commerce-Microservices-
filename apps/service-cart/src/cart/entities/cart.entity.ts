@@ -1,8 +1,8 @@
 export class Cart {
-  userId: string;
-  productId: string;
+  userId: number;
+  productId: number;
   priceTotal: number;
-  constructor(userId: string, productId: string, priceTotal: number) {
+  constructor(userId: number, productId: number, priceTotal: number) {
     this.userId = userId;
     this.productId = productId;
     this.priceTotal = priceTotal;

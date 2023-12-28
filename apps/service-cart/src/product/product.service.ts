@@ -6,9 +6,9 @@ import { PrismaService } from '../config/config.service';
 @Injectable()
 export class ProductService {
   constructor(private readonly prismaSevice: PrismaService) {}
-  create(createProductDto: CreateProductDto) {
+  async create(createProductDto: CreateProductDto) {
     try {
-      const product = this.prismaSevice.product.create({
+      const product = await this.prismaSevice.product.create({
         data: {
           name: createProductDto.name,
           image: createProductDto.image,
@@ -28,9 +28,14 @@ export class ProductService {
     }
   }
 
-  findAll() {
+  async findAll() {
     try {
-      const products = this.prismaSevice.product.findMany();
+      const products = await this.prismaSevice.product.findMany();
+
+      if (products.length == 0) {
+        return 'Products not found';
+      }
+
       return products;
     } catch (error) {
       throw new Error('Failed to find products');
@@ -55,9 +60,9 @@ export class ProductService {
     }
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
+  async update(id: number, updateProductDto: UpdateProductDto) {
     try {
-      const product = this.prismaSevice.product.update({
+      const product = await this.prismaSevice.product.update({
         where: {
           id: id,
         },
@@ -78,9 +83,9 @@ export class ProductService {
     } catch (error) {}
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     try {
-      const product = this.prismaSevice.product.delete({
+      const product = await this.prismaSevice.product.delete({
         where: {
           id: id,
         },
