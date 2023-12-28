@@ -96,7 +96,7 @@ export class ProductService {
   }
 
   async productExists(id: number) {
-    const product = await this.prismaSevice.product.findFirst({
+    const product = await this.prismaSevice.product.findUnique({
       where: {
         id: id,
       },

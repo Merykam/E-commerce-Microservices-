@@ -25,10 +25,6 @@ export class CartService {
   async findAll() {
     try {
       const carts = await this.prismaService.cart.findMany();
-
-      if (carts.length == 0) {
-        return 'Carts not found';
-      }
       return carts;
     } catch (error) {
       return error;
@@ -43,9 +39,6 @@ export class CartService {
         },
       });
 
-      if (!cart) {
-        return 'Cart not found';
-      }
       return cart;
     } catch (error) {
       return error;
@@ -65,10 +58,6 @@ export class CartService {
         },
       });
 
-      if (!cart) {
-        return 'Cart not found';
-      }
-      
       return cart;
     } catch (error) {
       return error;
@@ -83,12 +72,19 @@ export class CartService {
         },
       });
 
-      if (!cart) {
-        return 'Cart not found';
-      }
       return cart;
     } catch (error) {
       return error;
     }
+  }
+
+  async cartExists(id: number) {
+    const cart = await this.prismaService.cart.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    return !!cart;
   }
 }
