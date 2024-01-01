@@ -1,9 +1,13 @@
 import {
   IsInt,
   IsNotEmpty,
-  IsString,
-  IsNumber,
   IsEnum,
+  IsArray,
+  ArrayNotEmpty,
+  ArrayMinSize,
+  IsBoolean,
+  IsEmpty,
+  IsOptional,
 } from 'class-validator';
 
 enum Status {
@@ -15,20 +19,28 @@ enum Status {
 export class OrderDTO {
   @IsInt()
   @IsNotEmpty()
-  id: number;
-
-  @IsInt()
-  @IsNotEmpty()
   userId: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  quantity: number;
 
   @IsEnum(Status)
   status: Status;
 
-  @IsString()
+  @IsArray()
+  @ArrayNotEmpty()
+  @ArrayMinSize(1)
+  @IsInt({ each: true })
+  orderItems: number[];
+}
+
+export class UpdateOrderDTO {
+  @IsInt()
   @IsNotEmpty()
-  productId: string;
+  id: number;
+
+  @IsEnum(Status)
+  @IsOptional()
+  status: Status;
+
+  @IsBoolean()
+  @IsOptional()
+  paid: boolean;
 }
