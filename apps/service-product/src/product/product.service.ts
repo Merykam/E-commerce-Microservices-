@@ -14,4 +14,8 @@ export class ProductService {
         const products = await this.productModel.find();
         return products
     }
+    async create(product:Product): Promise<Product>{
+        const res = await this.productModel.create(product)
+        return res;
+    }
 }

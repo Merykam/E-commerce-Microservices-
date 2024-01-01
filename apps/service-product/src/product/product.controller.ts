@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product } from './schemas/product.schema';
 
@@ -12,6 +12,11 @@ export class ProductController {
         const products =  this.productService.findAll()
 
         return products
+    }
+
+    @Post('new')
+    async createProduct(@Body() product): Promise<Product>{
+        return this.productService.create(product)
     }
     
 }
