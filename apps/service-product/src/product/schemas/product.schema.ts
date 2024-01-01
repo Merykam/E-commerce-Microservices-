@@ -20,7 +20,7 @@ export class Product extends Document {
     description: string;
 
     @Prop()
-    price: string;
+    price: number;
 
     @Prop()
     category: Category;
