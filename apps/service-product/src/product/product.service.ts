@@ -34,9 +34,9 @@ export class ProductService {
             new:true,
             runValidators:true,
         });
-
-      
-        
+    }
+    async delete(id:string){
+        return await this.productModel.deleteOne({_id:id});
 
     }
 }
