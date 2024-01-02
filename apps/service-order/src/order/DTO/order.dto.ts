@@ -32,10 +32,6 @@ export class OrderDTO {
 }
 
 export class UpdateOrderDTO {
-  @IsInt()
-  @IsNotEmpty()
-  id: number;
-
   @IsEnum(Status)
   @IsOptional()
   status: Status;
