@@ -6,8 +6,36 @@ import { OrderDTO, UpdateOrderDTO } from './DTO';
 export class OrderService {
   constructor(private prisma: PrismaService) {}
 
+  async getAllOrders() {
+    try {
+      const orders = await this.prisma.order.findMany({
+        include: {
+          user: {
+            select : {
+              name: true,
+            }
+          },
+          orderItems: {
+            include: {
+              product: {
+                select : {
+                  name: true,
+                  price : true,
+                }
+              },
+            },
+          },
+        },
+      });
+      return orders;
+    } catch (error) {
+      console.log(error);
+      throw new InternalServerErrorException(
+        'something wrong occurred while retrieving the orders',
+      );
+    }
+  }
   async createOrder(data: OrderDTO) {
-    console.log(data);
     try {
       const insertedOrder = await this.prisma.order.create({
         data: { userId: data.userId, status: data.status },
@@ -38,10 +66,10 @@ export class OrderService {
     }
   }
 
-  async updateOrder(data: UpdateOrderDTO) {
+  async updateOrder(id: string, data: UpdateOrderDTO) {
     try {
       const updatedOrder = await this.prisma.order.update({
-        where: { id: data.id },
+        where: { id: parseInt(id) },
         data,
       });
       return updatedOrder;
