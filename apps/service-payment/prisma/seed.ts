@@ -4,15 +4,7 @@ const prisma = new PrismaClient();
 
 async function seed() {
   try {
-    // Create Payment methods
-    // await prisma.paymentMethod.createMany({
-    //   data: [
-    //     { name: 'PayPal' },
-    //     { name: 'Stripe' },
-    //   ],
-    // });
-
-    // Create Customers
+    
     const customer1 = await prisma.customer.create({
       data: {
         name: 'John Doe',
@@ -27,7 +19,7 @@ async function seed() {
       },
     });
 
-    // Create Products
+    
     const product1 = await prisma.product.create({
       data: {
         name: 'Product 1',
@@ -44,7 +36,7 @@ async function seed() {
       },
     });
 
-    // Create Carts
+    
     const cart1 = await prisma.cart.create({
       data: {
         productId: product1.id,
@@ -59,7 +51,7 @@ async function seed() {
       },
     });
 
-    // Create Orders
+   
     const order1 = await prisma.order.create({
       data: {
         cartId: cart1.id,
@@ -76,7 +68,7 @@ async function seed() {
       },
     });
 
-    // Create Payments
+  
     await prisma.payment.createMany({
       data: [
         {
