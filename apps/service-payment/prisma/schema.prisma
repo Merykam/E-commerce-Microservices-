@@ -38,6 +38,8 @@ model Order {
   id        Int         @id @default(autoincrement())
   cartId    Int         @unique
   cart      Cart        @relation(fields: [cartId], references: [id])
+  customerId Int  
+  customer   Customer  @relation(fields: [customerId], references: [id])
   status    OrderStatus @default(Pending)
   payment   Payment?
   createdAt DateTime    @default(now())
@@ -49,7 +51,7 @@ model Product {
   name        String
   description String
   price       Float
-  cart        Cart[] @relation("ProductToCart")
+  cart        Cart[] 
 }
 
 model Customer {
@@ -57,14 +59,13 @@ model Customer {
   name      String
   email     String   @unique
   createdAt DateTime @default(now())
-  cart      Cart[]
+  order      Order[]
 }
 
 model Cart {
   id         Int       @id @default(autoincrement())
-  customerId Int
-  customer   Customer  @relation(fields: [customerId], references: [id])
-  products   Product[] @relation("ProductToCart")
-  payment    Order?
+  productId   Int
+  product     Product  @relation(fields: [productId], references: [id])
+  Order    Order?
   totalprice Float
 }
