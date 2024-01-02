@@ -39,4 +39,11 @@ export class ProductService {
         return await this.productModel.deleteOne({_id:id});
 
     }
+    async searchP(criteria: any): Promise<Product[]> {
+        console.log(criteria);
+        
+        
+        const products = await this.productModel.find(criteria);
+        return products;
+    }
 }

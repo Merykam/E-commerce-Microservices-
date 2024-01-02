@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product } from './schemas/product.schema';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -8,6 +8,14 @@ import { UpdateProductDto } from './dto/update-product.dto';
 export class ProductController {
     constructor(private productService:ProductService){}
  
+    @Get('search')
+    async searchProducts(@Query() query: any): Promise<Product[]> {
+        console.log("hello");
+        
+        console.log(query);
+        const products = await this.productService.searchP(query);
+        return products;
+    }
     
     @Get()
     async getAllProducts(): Promise<Product[]>{
@@ -21,6 +29,7 @@ export class ProductController {
     product:CreateProductDto,): Promise<Product>{
         return this.productService.create(product)
     }
+ 
     @Get(':id')
     async getProduct(@Param('id')
     id: string): Promise<Product>{
@@ -42,6 +51,7 @@ export class ProductController {
         const deletedProduct = this.productService.delete(id);
         return deletedProduct;
     }
+   
     
 
 
