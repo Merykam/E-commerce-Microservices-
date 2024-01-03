@@ -17,6 +17,8 @@ export class ProductService {
         return products
     }
     async create(product:CreateProductDto): Promise<Product>{
+        
+            
         const res = await this.productModel.create(product)
         return res;
     }

@@ -25,8 +25,9 @@ export class Product extends Document {
     @Prop()
     category: Category;
 
-    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Admin' }) 
-    // adminId: Admin;
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Admin' }) 
+    // @Prop()
+    adminId: mongoose.Types.ObjectId;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
