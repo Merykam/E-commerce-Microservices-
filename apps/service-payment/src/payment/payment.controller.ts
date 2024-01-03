@@ -10,7 +10,7 @@ export class PaymentController {
 
   @Get()
   stripMethode() {
-    const order = this.paymentService.getOrder(3);
+    const order = this.paymentService.createPaymentIntent(2);
     
   }
 
