@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post} from '@nestjs/common';
 import { PaymentService } from './payment.service';
 
 
@@ -8,9 +8,9 @@ export class PaymentController {
 
   
 
-  @Get()
-  stripMethode() {
-    const order = this.paymentService.createPaymentIntent(2);
+  @Post()
+  async stripMethode() {
+    const order = await this.paymentService.createPayment(2);
     
   }
 

@@ -11,14 +11,13 @@ datasource db {
 }
 
 model Payment {
-  id              Int           @id @default(autoincrement())
-  orderId         Int           @unique
-  order           Order         @relation(fields: [orderId], references: [id])
-  amount          Float
-  methodId        PaymentMethod
-  stripeSessionId String
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  id            Int           @id @default(autoincrement())
+  orderId       Int
+  order         Order         @relation(fields: [orderId], references: [id])
+  amount        Float
+  methodPayment PaymentMethod @default(Stripe)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 }
 
 enum PaymentMethod {
@@ -35,15 +34,15 @@ enum OrderStatus {
 }
 
 model Order {
-  id        Int         @id @default(autoincrement())
-  cartId    Int         @unique
-  cart      Cart        @relation(fields: [cartId], references: [id])
-  customerId Int  
-  customer   Customer  @relation(fields: [customerId], references: [id])
-  status    OrderStatus @default(Pending)
-  payment   Payment?
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  id         Int         @id @default(autoincrement())
+  cartId     Int         @unique
+  cart       Cart        @relation(fields: [cartId], references: [id])
+  customerId Int
+  customer   Customer    @relation(fields: [customerId], references: [id])
+  status     OrderStatus @default(Pending)
+  payment    Payment[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 }
 
 model Product {
@@ -51,7 +50,7 @@ model Product {
   name        String
   description String
   price       Float
-  cart        Cart[] 
+  cart        Cart[]
 }
 
 model Customer {
@@ -59,13 +58,13 @@ model Customer {
   name      String
   email     String   @unique
   createdAt DateTime @default(now())
-  order      Order[]
+  order     Order[]
 }
 
 model Cart {
-  id         Int       @id @default(autoincrement())
-  productId   Int
-  product     Product  @relation(fields: [productId], references: [id])
-  Order    Order?
+  id         Int     @id @default(autoincrement())
+  productId  Int
+  product    Product @relation(fields: [productId], references: [id])
+  Order      Order?
   totalprice Float
 }
