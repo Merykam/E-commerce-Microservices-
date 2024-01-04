@@ -6,9 +6,11 @@ import { User, UserSchema } from './Schema/auth..schema';
 import { AuthRepository } from './auth.repository';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '../constants/jwtConstants';
+import { RedisCacheModule } from '../config/redis/redis.module';
 
 @Module({
   imports: [
+    RedisCacheModule,
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     JwtModule.register({
       global: true,

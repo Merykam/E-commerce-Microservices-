@@ -9,17 +9,22 @@ import {
   HttpStatus,
   Res,
   ParseIntPipe,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { CartService } from './cart.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
+import { CacheInterceptor, CacheKey, CacheTTL } from '@nestjs/cache-manager';
 
+// @UseInterceptors(CacheInterceptor)
 @Controller('cart')
 export class CartController {
   constructor(private readonly cartService: CartService) {}
 
   @Post()
+  @CacheKey('cart')
+  @CacheTTL(30)
   async create(@Res() res: Response, @Body() createCartDto: CreateCartDto) {
     try {
       const cart = await this.cartService.create(createCartDto);
@@ -37,6 +42,7 @@ export class CartController {
   }
 
   @Get()
+  @CacheKey('cart')
   async findAll(@Res() res: Response) {
     try {
       const carts = await this.cartService.findAll();
@@ -88,7 +94,6 @@ export class CartController {
   ) {
     try {
       const check = await this.cartService.cartExists(+id);
-
       if (!check) {
         return res.status(HttpStatus.NOT_FOUND).json({
           message: 'Cart not found',
@@ -96,7 +101,6 @@ export class CartController {
         });
       }
       const cart = await this.cartService.update(+id, updateCartDto);
-
       return res.status(HttpStatus.OK).json({
         message: 'Cart updated successfully',
         data: cart,
@@ -119,14 +123,8 @@ export class CartController {
     @Res() res: Response,
   ) {
     try {
-      const check = await this.cartService.cartExists(+id);
-      if (!check) {
-        return res.status(HttpStatus.NOT_FOUND).json({
-          message: 'Cart not found',
-          data: null,
-        });
-      }
-      const cart = await this.cartService.remove(+id);
+      const cart = await this.cartService.remove(id);
+
       return res.status(HttpStatus.OK).json({
         message: 'Cart deleted successfully',
         data: cart,

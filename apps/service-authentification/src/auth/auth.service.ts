@@ -1,11 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { CreateAuthDto, UpdateAuthDto, LoginAuthDto } from './dto';
 import { AuthRepository } from './auth.repository';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+
+import { Cache } from 'cache-manager';
+
 @Injectable()
 export class AuthService {
-  constructor(private readonly authRepository: AuthRepository) {}
+  constructor(
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
+    private readonly authRepository: AuthRepository,
+  ) {}
 
   async create(createAuthDto: CreateAuthDto) {
     try {
@@ -19,11 +26,19 @@ export class AuthService {
   }
 
   async findAll() {
-    try {
-      return await this.authRepository.findAll();
-    } catch (error) {
-      return error;
-    }
+    console.log(1111);
+
+    // try {
+    const uy = await this.cacheManager.set('AEZ', 123);
+    console.log('set cache');
+    console.log(uy);
+
+    const test = await this.cacheManager.get('AZE');
+    console.log(test);
+    return await this.authRepository.findAll();
+    //   } catch (error) {
+    //     return error;
+    //   }
   }
 
   async findOne(id: string) {
