@@ -12,6 +12,8 @@ import {
 import { AuthService } from './auth.service';
 import { LoginAuthDto, UpdateAuthDto, CreateAuthDto } from './dto';
 import { Response } from 'express';
+import { UseInterceptors } from '@nestjs/common';
+import { CacheInterceptor, CacheKey } from '@nestjs/cache-manager';
 
 @Controller('auth')
 export class AuthController {
@@ -27,9 +29,11 @@ export class AuthController {
     });
   }
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheKey('getCarts')
   @Get()
-  findAll() {
-    return this.authService.findAll();
+  async findAll() {
+    return await this.authService.findAll();
   }
 
   @Post('login')

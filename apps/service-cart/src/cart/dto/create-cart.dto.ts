@@ -7,9 +7,9 @@ export class CreateCartDto {
   readonly userId: number;
 
   @IsNotEmpty({
-    message: 'Product ID is required',
+    message: 'Products is required',
   })
-  readonly productId: number;
+  readonly products: Array<object>;
 
   @IsNotEmpty({
     message: 'Price total is required',

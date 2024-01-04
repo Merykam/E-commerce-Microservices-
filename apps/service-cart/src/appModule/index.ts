@@ -8,7 +8,7 @@ import { CartModule } from '../cart/cart.module';
 import { ProductModule } from '../product/product.module';
 import { UserModule } from '../user/user.module';
 import { CategoryModule } from '../category/category.module';
-import { LoggerMiddleware } from '../logger/logger.middleware';
+// import { LoggerMiddleware } from '../logger/logger.middleware';
 
 @Module({
   imports: [CartModule, ProductModule, UserModule, CategoryModule],
