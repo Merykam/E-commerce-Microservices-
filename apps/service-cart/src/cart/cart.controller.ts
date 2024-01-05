@@ -24,7 +24,7 @@ export class CartController {
 
   @Post()
   @CacheKey('cart')
-  @CacheTTL(30)
+  // @CacheTTL(30)
   async create(@Res() res: Response, @Body() createCartDto: CreateCartDto) {
     try {
       const cart = await this.cartService.create(createCartDto);
@@ -42,7 +42,7 @@ export class CartController {
   }
 
   @Get()
-  @CacheKey('cart')
+  // @CacheKey('cart')
   async findAll(@Res() res: Response) {
     try {
       const carts = await this.cartService.findAll();
