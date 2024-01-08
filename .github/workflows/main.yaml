@@ -1,0 +1,36 @@
+on:
+    push:
+      branches:
+        - dev
+        - '*service*'
+  
+  jobs:
+    build-and-push-service-authentification:
+      runs-on: ubuntu-latest
+      if: github.ref_name == 'dev' || contains(github.ref_name, 'service-authentification')
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+  
+        - name: Setup Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: '14'
+  
+        - name: Install dependencies
+          run: npm install
+
+    build-and-push-service-cart:
+        runs-on: ubuntu-latest
+        if: github.ref_name == 'dev' || contains(github.ref_name, 'service-cart')
+        steps:
+        - name: Checkout code
+            uses: actions/checkout@v3
+    
+        - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+            node-version: '14'
+    
+        - name: Install dependencies
+            run: npm install
