@@ -1,12 +1,23 @@
-FROM node:20.10.0
+FROM node:20.10.0 as Developpment
 
-WORKDIR /app
+WORKDIR /apps/service-authentification
 
 COPY package*.json ./
 RUN npm install
 
 COPY . .
 
-EXPOSE 3001
+RUN npm run build
 
-CMD ["npm", "run", "start:dev service-authentification"]
+
+FROM node:20.10.0 as Production
+
+WORKDIR /apps/service-authentification
+
+COPY package*.json ./
+
+RUN npm install --only=production
+
+COPY --from=Developpment /apps/service-authentification/dist ./dist
+
+CMD ["node", "dist/main"]
