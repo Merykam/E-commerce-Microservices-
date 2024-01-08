@@ -1,12 +1,23 @@
-FROM node:20.10.0
+FROM node:20.10.0 as Developpment
 
-WORKDIR /app
+WORKDIR /apps/service-cart
 
 COPY package*.json ./
 RUN npm install
 
 COPY . .
 
-EXPOSE 9000
+RUN npm run build
 
-CMD ["npm", "run", "start:dev service-cart"]
+
+FROM node:20.10.0 as Production
+
+WORKDIR /apps/service-cart
+
+COPY package*.json ./
+
+RUN npm install --only=production
+
+COPY --from=Developpment /apps/service-cart/dist ./dist
+
+CMD ["node", "dist/main"]
