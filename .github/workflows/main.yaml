@@ -2,7 +2,7 @@ on:
     push:
       branches:
         - dev
-        - '*service*'
+        - main
         - '*service-authentification*'
         - '*service-cart*'
         - '*service-order*'
@@ -11,7 +11,7 @@ on:
   jobs:
     build-and-push-service-authentification:
       runs-on: ubuntu-latest
-      if: github.ref_name == 'dev' || contains(github.ref_name, 'service-authentification')
+      if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-authentification')
       steps:
         - name: Checkout code
           uses: actions/checkout@v3
@@ -26,7 +26,7 @@ on:
 
     build-and-push-service-cart:
         runs-on: ubuntu-latest
-        if: github.ref_name == 'dev' || contains(github.ref_name, 'service-cart')
+        if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-cart')
         steps:
         - name: Checkout code
             uses: actions/checkout@v3
@@ -41,7 +41,7 @@ on:
 
     build-and-push-service-order:
         runs-on: ubuntu-latest
-        if: github.ref_name == 'dev' || contains(github.ref_name, 'service-order')
+        if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-order')
         steps:
         - name: Checkout code
             uses: actions/checkout@v3
@@ -56,7 +56,7 @@ on:
     
     build-and-push-service-payment:
         runs-on: ubuntu-latest
-        if: github.ref_name == 'dev' || contains(github.ref_name, 'service-payment')
+        if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-payment')
         steps:
         - name: Checkout code
             uses: actions/checkout@v3
@@ -71,7 +71,7 @@ on:
         
     build-and-push-service-product:
         runs-on: ubuntu-latest
-        if: github.ref_name == 'dev' || contains(github.ref_name, 'service-product')
+        if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-product')
         steps:
         - name: Checkout code
             uses: actions/checkout@v3
