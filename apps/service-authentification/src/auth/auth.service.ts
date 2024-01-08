@@ -29,13 +29,13 @@ export class AuthService {
     console.log(1111);
 
     // try {
-    const uy = await this.cacheManager.set('AEZ', 123);
-    console.log('set cache');
-    console.log(uy);
+    // const uy = await this.cacheManager.set('AEZ', 123);
+    // console.log('set cache');
+    // console.log(uy);
 
-    const test = await this.cacheManager.get('AZE');
-    console.log(test);
-    return await this.authRepository.findAll();
+    // const test = await this.cacheManager.get('AZE');
+    // console.log(test);
+    // return await this.authRepository.findAll();
     //   } catch (error) {
     //     return error;
     //   }
