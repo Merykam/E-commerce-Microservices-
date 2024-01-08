@@ -19,6 +19,8 @@ export class User {
 
   @Prop()
   role: string;
+
+  // dfsfds
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
