@@ -3,6 +3,9 @@ on:
       branches:
         - dev
         - '*service*'
+        paths:
+            - 'service-authentification/**'
+            - 'service-cart/**'
   
   jobs:
     build-and-push-service-authentification:
