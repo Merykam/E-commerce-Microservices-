@@ -9,78 +9,74 @@ on:
         - '*service-payment*'
         - '*service-product*'
 jobs:
-build-and-push-service-authentification:
-    runs-on: ubuntu-latest
-    if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-authentification')
-    steps:
-    - name: Checkout code
-        uses: actions/checkout@v3
+    build-and-push-service-authentification:
+        runs-on: ubuntu-latest
+        if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-authentification')
+        steps:
+        - name: Checkout code
+            uses: actions/checkout@v3
+        - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+            node-version: '14'
+        - name: Install dependencies
+            run: npm install
 
-    - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-        node-version: '14'
+    build-and-push-service-cart:
+        runs-on: ubuntu-latest
+        if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-cart')
+        steps:
+        - name: Checkout code
+            uses: actions/checkout@v3
+        - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+            node-version: '14'
+        - name: Install dependencies
+            run: npm install
 
-    - name: Install dependencies
-        run: npm install
+    build-and-push-service-order:
+        runs-on: ubuntu-latest
+        if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-order')
+        steps:
+        - name: Checkout code
+            uses: actions/checkout@v3
 
-build-and-push-service-cart:
-    runs-on: ubuntu-latest
-    if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-cart')
-    steps:
-    - name: Checkout code
-        uses: actions/checkout@v3
+        - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+            node-version: '14'
 
-    - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-        node-version: '14'
+        - name: Install dependencies
+            run: npm install
 
-    - name: Install dependencies
-        run: npm install
+    build-and-push-service-payment:
+        runs-on: ubuntu-latest
+        if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-payment')
+        steps:
+        - name: Checkout code
+            uses: actions/checkout@v3
 
-build-and-push-service-order:
-    runs-on: ubuntu-latest
-    if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-order')
-    steps:
-    - name: Checkout code
-        uses: actions/checkout@v3
+        - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+            node-version: '14'
 
-    - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-        node-version: '14'
+        - name: Install dependencies
+            run: npm install
+        
+    build-and-push-service-product:
+        runs-on: ubuntu-latest
+        if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-product')
+        steps:
+        - name: Checkout code
+            uses: actions/checkout@v3
 
-    - name: Install dependencies
-        run: npm install
+        - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+            node-version: '14'
 
-build-and-push-service-payment:
-    runs-on: ubuntu-latest
-    if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-payment')
-    steps:
-    - name: Checkout code
-        uses: actions/checkout@v3
-
-    - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-        node-version: '14'
-
-    - name: Install dependencies
-        run: npm install
-    
-build-and-push-service-product:
-    runs-on: ubuntu-latest
-    if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-product')
-    steps:
-    - name: Checkout code
-        uses: actions/checkout@v3
-
-    - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-        node-version: '14'
-
-    - name: Install dependencies
-        run: npm install
+        - name: Install dependencies
+            run: npm install
     
