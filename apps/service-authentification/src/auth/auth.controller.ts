@@ -41,8 +41,22 @@ export class AuthController {
     const user = await this.authService.login(loginAuthDto);
 
     return res.status(HttpStatus.CREATED).json({
-      message: 'User logged in successfully',
       data: user,
+    });
+  }
+
+  @Post('verify-email/:email/:token')
+  async verifyEmail(
+    @Res() res: Response,
+    @Param('email') email: string,
+    @Param('token') token: string,
+  ) {
+    const user = await this.authService.verifyEmail(email, token);
+    return res.status(HttpStatus.CREATED).json({
+      message: 'User verified successfully',
+      data: {
+        user,
+      },
     });
   }
 

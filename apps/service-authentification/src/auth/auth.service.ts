@@ -3,21 +3,32 @@ import { CreateAuthDto, UpdateAuthDto, LoginAuthDto } from './dto';
 import { AuthRepository } from './auth.repository';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-
-import { Cache } from 'cache-manager';
+import { MailerService } from '@nestjs-modules/mailer';
+import { EmailService } from '../helpers/mail/mail.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
     private readonly authRepository: AuthRepository,
+    private readonly mailerService: EmailService,
   ) {}
 
   async create(createAuthDto: CreateAuthDto) {
     try {
       const salt = await bcrypt.genSalt();
       createAuthDto.password = await bcrypt.hash(createAuthDto.password, salt);
+
+      const payload = {
+        username: createAuthDto.username,
+        email: createAuthDto.email,
+      };
+
+      const token = await new JwtService({
+        secret: process.env.SECREtKEYJWT,
+        signOptions: { expiresIn: '2day' },
+      }).sign(payload);
+
+      await this.mailerService.sendEmail(token, createAuthDto.email);
 
       return await this.authRepository.create(createAuthDto);
     } catch (error) {
@@ -26,19 +37,12 @@ export class AuthService {
   }
 
   async findAll() {
-    console.log(1111);
-
-    // try {
-    // const uy = await this.cacheManager.set('AEZ', 123);
-    // console.log('set cache');
-    // console.log(uy);
-
-    // const test = await this.cacheManager.get('AZE');
-    // console.log(test);
-    // return await this.authRepository.findAll();
-    //   } catch (error) {
-    //     return error;
-    //   }
+    try {
+      const users = await this.authRepository.findAll();
+      return users;
+    } catch (error) {
+      return error;
+    }
   }
 
   async findOne(id: string) {
@@ -72,6 +76,14 @@ export class AuthService {
         ];
       }
 
+      if (user && !user.emailVerify) {
+        return [
+          {
+            message: 'Email not verified',
+          },
+        ];
+      }
+
       const validPassword = await bcrypt.compare(
         loginAuthDto.password,
         user.password,
@@ -92,10 +104,47 @@ export class AuthService {
       };
 
       return {
+        message: 'User logged in successfully',
         access_token: new JwtService({
-          secret: 'secret',
+          secret: process.env.SECREtKEYJWT,
           signOptions: { expiresIn: '2day' },
         }).sign(payload),
+      };
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async verifyEmail(email: string, token: string) {
+    try {
+      const user = await this.authRepository.findOneByEmail(email);
+      if (!user) {
+        return [
+          {
+            message: 'Invalid email',
+          },
+        ];
+      }
+
+      const validToken = await new JwtService({
+        secret: process.env.SECREtKEYJWT,
+        signOptions: { expiresIn: '2day' },
+      }).verify(token);
+
+      if (!validToken) {
+        return [
+          {
+            message: 'Invalid token',
+          },
+        ];
+      }
+
+      await this.authRepository.update(user._id, {
+        emailVerify: true,
+      } as UpdateAuthDto);
+
+      return {
+        message: 'Email verified',
       };
     } catch (error) {
       return error;
