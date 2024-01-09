@@ -17,11 +17,11 @@ export class User {
   @Prop()
   password: string;
 
-  @Prop()
-  role: string;
+  @Prop({ default: false })
+  emailVerify: boolean;
 
-  // yuripuôiruzeôiu
-  // lmkjgmlkjdfmglkj
+  @Prop({ default: 'user' })
+  role: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
