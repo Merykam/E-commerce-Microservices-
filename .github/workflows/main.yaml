@@ -28,7 +28,7 @@ jobs:
         with:
           aws-access-key-id: AKIA5RGPWXNPTLMQ4HEA
           aws-secret-access-key: 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
-          aws-region: global
+          aws-region: eu-north-1
 
   build-and-push-service-cart:
     runs-on: ubuntu-latest
@@ -47,7 +47,7 @@ jobs:
         with:
           aws-access-key-id: AKIA5RGPWXNPTLMQ4HEA
           aws-secret-access-key: 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
-          aws-region: global
+          aws-region: eu-north-1
 
   build-and-push-service-order:
     runs-on: ubuntu-latest
