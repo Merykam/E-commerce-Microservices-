@@ -3,7 +3,6 @@ import { CreateAuthDto, UpdateAuthDto, LoginAuthDto } from './dto';
 import { AuthRepository } from './auth.repository';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { MailerService } from '@nestjs-modules/mailer';
 import { EmailService } from '../helpers/mail/mail.service';
 
 @Injectable()
