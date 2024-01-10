@@ -6,7 +6,7 @@ export default function register() {
         <div className="w-full max-w-[26rem] p-4 sm:px-5">
           <div className="text-center">
             <img
-              className="mx-auto h-16 w-16"
+              className="mx-auto h-20 w-20"
               src="https://www.dynamicmarketing.eu/wp-content/uploads/2018/06/ecommerce.logo_.png"
               alt="logo"
             />
