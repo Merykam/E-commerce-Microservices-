@@ -1,4 +1,4 @@
-import { Controller, Get, Post} from '@nestjs/common';
+import { Controller, Get, Post, Query, Res} from '@nestjs/common';
 import { PaymentService } from './payment.service';
 
 
@@ -8,14 +8,19 @@ export class PaymentController {
 
   
 
-  @Post()
+  @Post('stripe')
   async stripMethode() {
     const order = await this.paymentService.createPayment(2);
   }
-  @Get()
-  async getOrder() {
+  @Post('paypal')
+  async getOrder(@Res() res  ) {
     const order = await this.paymentService.paypalPayment(2);
-    return order;
+    console.log(order,"order")
+    res.redirect(order);
   }
-
+@Get('success')
+async success(@Query('paymentId') paymentId:string,@Query('PayerID') PayerID:string,@Res() res  ) {
+  const order = await this.paymentService.executePaymentPaypal(paymentId,PayerID);
+  res.redirect('http://localhost:3003/sevice-payment');
+}
 }
