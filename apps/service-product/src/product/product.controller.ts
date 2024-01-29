@@ -37,13 +37,13 @@ export class ProductController {
   }
     @Post('new')
     async createProduct(@Body() createProductDto: CreateProductDto): Promise<Product> {
-        const admin1 = createProductDto.adminId;
-        const findAd = await this.adminService.findAdmin(admin1); 
+        // const admin1 = createProductDto.adminId;
+        // const findAd = await this.adminService.findAdmin(admin1); 
     
-        if (!findAd) {
+        // if (!findAd) {
          
-            throw new NotFoundException('Admin not found');
-        }
+        //     throw new NotFoundException('Admin not found');
+        // }
     
        
     
@@ -52,7 +52,7 @@ export class ProductController {
             description: createProductDto.description,
             price: createProductDto.price,
             category: createProductDto.category,
-            adminId: findAd._id
+            // adminId: findAd._id
         };
     
         return this.productService.create(product);

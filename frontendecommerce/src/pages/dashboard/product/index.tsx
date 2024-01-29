@@ -3,8 +3,13 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
 const index = () => {
+
+
+ 
+  
    
     const [products , setProducts]=useState([])
+    
     console.log(products); 
 
     useEffect(()=>{
@@ -38,17 +43,21 @@ const index = () => {
    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/riva-dashboard-tailwind/riva-dashboard.css"/>
     <div className="flex flex-wrap mb-5  ">
+   
       <div className="px-3 mb-6  mx-auto ">
         <div className=" flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5">
           <div className=" relative flex flex-col min-w-0 break-words border border-dashed bg-clip-border rounded-2xl border-stone-200 bg-light/30">
           
             <div className="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
+           
               <h3 className="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
                 <span className="mr-3 font-semibold text-dark">Products</span>
                 <span className="mt-1 font-medium text-secondary-dark text-lg/normal">All products you have</span>
+                
               </h3>
+              
               <div className="relative flex flex-wrap items-center my-2">
-            
+              <a href='product/create' className='font-semibold text-dark text-base'>Add product</a>
                 {/* <a href="javascript:void(0)" className="inline-block text-[.925rem] font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-150 ease-in-out text-light-inverse bg-light-dark border-light shadow-none border-0 py-2 px-5 hover:bg-secondary active:bg-light focus:bg-light"> See other projects </a> */}
               </div>
             </div>
@@ -67,13 +76,14 @@ const index = () => {
                   </thead>
                   <tbody>
               {products.map(product =>(
+                
 
              
                       <tr className="border-b border-dashed last:border-b-0">
                    <td className="p-3 pl-0">
                                 <div className="flex items-center">
                                 <div className="relative inline-block shrink-0 rounded-2xl me-3">
-                            <img src="" className="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt=""/>
+                            {/* <img src="" className="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt=""/> */}
                           </div>
                                   <div  className="flex flex-col justify-start">
                                  
