@@ -142,4 +142,37 @@ describe('OrderService', () => {
     });
   });
 
+  describe('assignOrderIdToOrderItems', () => {
+    it('should assign the order ID to order items', async () => {
+      const orderId = 1;
+      const orderItems = [1,2
+      ];
+      jest.spyOn(prismaService.orderItem, 'updateMany').mockResolvedValue({count:0});
+
+      await orderService.assignOrderIdToOrderItems(orderId, orderItems);
+
+      expect(prismaService.orderItem.updateMany).toHaveBeenCalledWith({
+        where: {
+          id: { in: orderItems.map((orderItem) => orderItem) },
+        },
+        data: {
+          orderId,
+        },
+      });
+    });
+
+    it('should throw an error if assigning the order ID fails', async () => {
+      const orderId = 1;
+      const orderItems = [1,2
+      ];
+      jest
+        .spyOn(prismaService.orderItem, 'updateMany')
+        .mockRejectedValue(new Error('Database error'));
+
+      await expect(
+        orderService.assignOrderIdToOrderItems(orderId, orderItems),
+      ).rejects.toThrow(InternalServerErrorException);
+      expect(prismaService.orderItem.updateMany).toHaveBeenCalled();
+    });
+  });
 });
