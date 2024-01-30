@@ -9,6 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nestjs/axios": "^3.0.1",
+    "@reduxjs/toolkit": "^2.0.1",
+    "axios": "^1.6.5",
+    "next": "14.0.4",
+    "nodemon": "^3.0.2",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.6",
