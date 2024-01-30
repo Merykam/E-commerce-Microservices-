@@ -1,12 +1,15 @@
+'use client';
 import { useEffect, useState } from 'react';
 import { useLoginMutation } from '@/redux/service/auth/authApi';
 import { setLogin } from '@/redux/features/auth/authSlice';
 import { useDispatch } from 'react-redux';
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 export const StateLogin = () => {
   const dispatch = useDispatch();
-  const [login, { isLoading, error, data }] = useLoginMutation();
+  const router = useRouter();
+  const [login, { isLoading, error, data, isSuccess }] = useLoginMutation();
 
   const state = {
     email: '',
@@ -29,22 +32,22 @@ export const StateLogin = () => {
     });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    login(statelogin);
+    await login(statelogin);
   };
 
   useEffect(() => {
     (async () => {
-      if (data?.data[0].message == 'Invalid password') {
-        return  toast.error("All is Required");
-      } else if (data?.data[0].message == 'Invalid email') {
-        return  toast.error("All is Required");
+      await dispatch(setLogin(data?.data));
+
+      if (isSuccess) {
+        toast.success(`Welcome, you are logged in successfully`);
+        router.push('/dashboard');
       }
-      await dispatch(setLogin(data));
     })();
-  }, [data]);
+  }, [data, isSuccess]);
 
   return { statelogin, handleChange, handleCheck, handleSubmit };
 };

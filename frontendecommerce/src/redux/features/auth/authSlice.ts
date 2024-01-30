@@ -1,8 +1,11 @@
+'use client';
 import { createSlice } from '@reduxjs/toolkit';
 import { authEntity } from './entity.auth';
 
 const initialState: authEntity = {
-  
+  id: '',
+  username: '',
+  email: '',
 };
 
 const authSlice = createSlice({
@@ -10,13 +13,14 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setLogin: (state, action) => {
-      // console.log(action.payload);
-      
+      state.id = action.payload?.id;
+      state.username = action.payload?.username;
+      state.email = action.payload?.email;
     },
     setLogout: (state, action) => {
-      // state.username = '';
-      // state.email = '';
-      // state.password = '';
+      state.id = '';
+      state.username = '';
+      state.email = '';
     },
   },
 });
