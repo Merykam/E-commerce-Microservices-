@@ -1,3 +1,18 @@
+'use client';
+import { Box  } from '@mui/material';
+import Header from '@/components/cart/Header';
+import SideBar from '@/components/cart/Sidebar';
+import Main from '@/components/cart/Main';
+
+
 export default function cart() {
-  return <h1>Cart</h1>;
+  return (
+    <>
+      <Box>
+      <Header />
+      <SideBar/>
+      <Main />
+      </Box>
+    </>
+  );
 }

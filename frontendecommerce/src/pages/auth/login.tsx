@@ -1,4 +1,6 @@
-import { StateLogin } from '@/@fake-db/auth/state';
+'use client';
+import { StateLogin } from '@/@fake-db/auth/authentification';
+
 import Link from 'next/link';
 
 export default function login() {

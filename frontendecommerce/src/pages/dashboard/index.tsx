@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 function Dashboard() {
-  const router = useRouter();
-  useEffect(() => {
-    const isAuthenticated = true;
+  // const router = useRouter();
+  // useEffect(() => {
+  //   const isAuthenticated = true;
 
-    if (!isAuthenticated) {
-      router.push('/auth/login');
-    }
-  }, []);
+  //   if (!isAuthenticated) {
+  //     router.push('/auth/login');
+  //   }
+  // }, []);
 
   return (
     <div>
