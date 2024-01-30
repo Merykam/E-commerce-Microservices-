@@ -1,10 +1,11 @@
 'use client';
+import Table from './product/Table'
 const Dashboard = () => {
   return (
     <>
       <div className="bg-gray-50">
         {/* <!-- ========== HEADER ========== --> */}
-        <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b text-sm py-2.5 sm:py-4 lg:ps-64 dark:bg-gray-800 dark:border-gray-700">
+        <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full  bg-white border-b text-sm py-2.5 sm:py-4 lg:ps-64 dark:bg-gray-800 dark:border-gray-700">
           <nav
             className="flex basis-full items-center w-full mx-auto px-4 sm:px-6 md:px-8"
             aria-label="Global"
@@ -307,6 +308,9 @@ const Dashboard = () => {
         </div>
         {/* <!-- End Sidebar Toggle --> */}
 
+
+
+     
         {/* <!-- Sidebar --> */}
         <div
           id="application-sidebar"
@@ -789,11 +793,14 @@ const Dashboard = () => {
         {/* <!-- End Sidebar --> */}
 
         {/* <!-- Content --> */}
-        <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72">
+        <div className="pt-10 px-4 sm:px-6 md:px-8 lg:ps-72">
           {/* <!-- Page Heading --> */}
-          <main>Main</main>
+          <main>
+            ggggggg
+          </main>
         </div>
-      </div>
+
+        </div>
     </>
   );
 };
