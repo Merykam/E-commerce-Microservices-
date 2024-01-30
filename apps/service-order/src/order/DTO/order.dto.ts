@@ -10,7 +10,7 @@ import {
   IsOptional,
 } from 'class-validator';
 
-enum Status {
+export enum Status {
   value1 = 'Pending',
   value2 = 'In Delivery',
   value3 = 'Delivered',
