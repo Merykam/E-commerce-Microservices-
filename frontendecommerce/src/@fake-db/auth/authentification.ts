@@ -52,7 +52,7 @@ export const StateLogin = () => {
 
       if (isSuccess) {
         toast.success(`Welcome, you are logged in successfully`);
-        router.push('/dashboard/cart');
+        router.push('/dashboard');
       }
     })();
   }, [data, isSuccess, isError, error]);
