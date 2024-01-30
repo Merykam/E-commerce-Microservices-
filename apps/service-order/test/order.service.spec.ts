@@ -91,5 +91,55 @@ describe('OrderService', () => {
       expect(prismaService.order.update).toHaveBeenCalled();
     });
   });
-  
+  describe('createOrder', () => {
+    it('should create a new order', async () => {
+      const orderDTO: OrderDTO = {
+        userId: 1,
+        status: Status.value1,
+        orderItems: [1,2],
+      };
+      const insertedOrder = {
+        id: 1,
+        userId: 1,
+        status: Status.value1,
+        paid:false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      jest
+        .spyOn(prismaService.order, 'create')
+        .mockResolvedValue(insertedOrder);
+      jest.spyOn(orderService, 'assignOrderIdToOrderItems').mockResolvedValue();
+
+      const result = await orderService.createOrder(orderDTO);
+
+      expect(result).toEqual(insertedOrder);
+      expect(prismaService.order.create).toHaveBeenCalledWith({
+        data: { userId: 1, status: Status.value1 },
+      });
+      expect(orderService.assignOrderIdToOrderItems).toHaveBeenCalledWith(
+        insertedOrder.id,
+        orderDTO.orderItems,
+      );
+    });
+
+    it('should throw an error if creating the order fails', async () => {
+      const orderDTO: OrderDTO = {
+        userId: 1,
+        status: Status.value1,
+        orderItems: [1,2],
+      };
+      jest
+        .spyOn(prismaService.order, 'create')
+        .mockRejectedValue(new Error('Database error'));
+      jest.spyOn(orderService, 'assignOrderIdToOrderItems').mockResolvedValue();
+
+      await expect(orderService.createOrder(orderDTO)).rejects.toThrow(
+        InternalServerErrorException,
+      );
+      expect(prismaService.order.create).toHaveBeenCalled();
+      expect(orderService.assignOrderIdToOrderItems).not.toHaveBeenCalled();
+    });
+  });
+
 });
