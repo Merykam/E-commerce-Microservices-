@@ -24,6 +24,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: AKIA5RGPWXNPTLMQ4HEA
+          aws-secret-access-key: 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
+          aws-region: eu-north-1
+
   build-and-push-service-cart:
     runs-on: ubuntu-latest
     if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-cart')
@@ -37,6 +44,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: AKIA5RGPWXNPTLMQ4HEA
+          aws-secret-access-key: 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
+          aws-region: eu-north-1
+
   build-and-push-service-order:
     runs-on: ubuntu-latest
     if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-order')
@@ -46,7 +60,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '20.10.0'
       - name: Install dependencies
         run: npm install
 
@@ -59,7 +73,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '20.10.0'
       - name: Install dependencies
         run: npm install
 
@@ -72,7 +86,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '20.10.0'
       - name: Install dependencies
         run: npm install
 
@@ -85,6 +99,6 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '20.10.0'
       - name: Install dependencies
         run: npm install

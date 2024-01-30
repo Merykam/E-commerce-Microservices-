@@ -10,6 +10,7 @@ import {
   Res,
   UseGuards,
   SetMetadata,
+  Redirect,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginAuthDto, UpdateAuthDto, CreateAuthDto } from './dto';
@@ -23,7 +24,7 @@ import { AuthGuard } from '../guards/AuthGuard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
+  @Post('register')
   async create(@Res() res: Response, @Body() createAuthDto: CreateAuthDto) {
     const user = await this.authService.create(createAuthDto);
 
@@ -43,27 +44,43 @@ export class AuthController {
   }
 
   @Post('login')
-  async login(@Res() res: Response, @Body() loginAuthDto: LoginAuthDto) {
+  async login(
+    @Res({ passthrough: true }) res: Response,
+    @Body() loginAuthDto: LoginAuthDto,
+  ) {
     const user = await this.authService.login(loginAuthDto);
 
-    return res.status(HttpStatus.CREATED).json({
-      data: user,
-    });
+    if (!user.status) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        message: user.message,
+      });
+    }
+
+    return res
+      .cookie('jwt', user.access_token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+      })
+      .status(HttpStatus.CREATED)
+      .json({
+        data: user.info,
+      });
   }
 
-  @Post('verify-email/:email/:token')
+  @Get('verify-email/:email/:token')
   async verifyEmail(
     @Res() res: Response,
     @Param('email') email: string,
     @Param('token') token: string,
   ) {
     const user = await this.authService.verifyEmail(email, token);
-    return res.status(HttpStatus.CREATED).json({
-      message: 'User verified successfully',
-      data: {
-        user,
-      },
-    });
+
+    return res.redirect(HttpStatus.CREATED, 'http://localhost:3000/auth/login');
+  }
+  @Get('forget-password/:email')
+  async forgetPassword(@Res() res: Response, @Param('email') email: string) {
+    return email;
   }
 
   @Get(':id')

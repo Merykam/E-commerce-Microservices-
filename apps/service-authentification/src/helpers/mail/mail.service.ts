@@ -12,7 +12,7 @@ export class EmailService {
       text: 'This is for verify email',
       html: `
         <h1>Verify Email</h1>
-        <p>Click <a href="http://localhost:3000/auth/verify-email/${email}/${token}">here</a> to verify your email</p>`,
+        <p>Click <a href="http://localhost:3005/auth/verify-email/${email}/${token}">here</a> to verify your email</p>`,
     });
   }
 }
