@@ -11,6 +11,7 @@ export class PaymentController {
   @Post('stripe')
   async stripMethode() {
     const order = await this.paymentService.createPayment(2);
+    return order;
   }
   @Post('paypal')
   async getOrder(@Res() res  ) {
