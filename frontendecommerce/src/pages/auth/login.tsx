@@ -1,5 +1,7 @@
 'use client';
 import { StateLogin } from '@/@fake-db/auth/authentification';
+import Image from 'next/image';
+import image from "../../styles/images/logo.png"
 
 import Link from 'next/link';
 
@@ -12,9 +14,9 @@ export default function login() {
       <div className="grid w-full grow grid-cols-1 place-items-center">
         <div className="w-full max-w-[26rem] p-4 sm:px-5">
           <div className="text-center">
-            <img
+            <Image
               className="mx-auto h-20 w-20"
-              src="https://www.dynamicmarketing.eu/wp-content/uploads/2018/06/ecommerce.logo_.png"
+              src={image}
               alt="logo"
             />
             <div className="mt-4">

@@ -1,4 +1,5 @@
-import Dashboard from '../layout';
+import Dashboard from '@/components/layout/layout';
+
 
 const Product = () => {
   return (
