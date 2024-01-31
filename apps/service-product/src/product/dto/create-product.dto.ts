@@ -6,6 +6,6 @@ export class CreateProductDto {
     readonly description : string;
     readonly price : number;
     readonly category : Category;
-    readonly adminId: string;
+    // readonly adminId: string;
 
 }
