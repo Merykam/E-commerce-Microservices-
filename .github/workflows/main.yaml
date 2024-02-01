@@ -61,7 +61,7 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
           REPOSITORY: service-cart
-        working-directory: E-commerce-Microservices-/apps/server-cart
+        working-directory: apps/server-cart
         run: |
           docker build -t service-cart .
           docker tag service-cart:latest 930296019807.dkr.ecr.eu-north-1.amazonaws.com/service-cart:latest
