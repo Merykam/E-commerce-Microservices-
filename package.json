@@ -13,6 +13,7 @@
     "start:dev service-cart": "nest start --watch service-cart",
     "start:dev service-order": "nest start --watch service-order",
     "start:dev service-authentification": "nest start --watch service-authentification",
+    "service-product": "nest start --watch service-product",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/apps/micro-service-ecommerce/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
