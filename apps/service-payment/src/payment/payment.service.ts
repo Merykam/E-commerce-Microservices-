@@ -145,6 +145,8 @@ export class PaymentService {
       console.error('Error executing PayPal payment:', error.response ? error.response.data : error.message);
     }
   }
+
+  
   async createPaymentIntent(order:{id:number,cart:{totalprice:number},customer:{name:string}}){
     try { 
       const amount=Math.round( order.cart.totalprice * 100);
@@ -173,7 +175,7 @@ export class PaymentService {
           const paymentData:any = {
             orderId: order.id,
             amount: order.cart.totalprice,
-            methodPayment: "Paypal",
+            methodPayment: "Stripe",
           };
         if(strip.status==='succeeded'){
         const payment = await this.prisma.payment.create({

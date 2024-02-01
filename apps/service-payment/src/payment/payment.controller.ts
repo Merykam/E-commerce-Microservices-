@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Res} from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Res} from '@nestjs/common';
 import { PaymentService } from './payment.service';
 
 
@@ -9,7 +9,10 @@ export class PaymentController {
   
 
   @Post('stripe')
-  async stripMethode() {
+  async stripMethode(@Body() body: any) {
+    console.log(body,"body")
+    const {token,product,orderId}=body;
+
     const order = await this.paymentService.createPayment(2);
     return order;
   }
