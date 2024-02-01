@@ -61,11 +61,11 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
           REPOSITORY: service-cart
-        working-directory: server-cart
+        working-directory: apps/service-cart
         run: |
-          docker build -t service-cart .
-          docker tag service-cart:latest 930296019807.dkr.ecr.eu-north-1.amazonaws.com/service-cart:latest
-          docker push 930296019807.dkr.ecr.eu-north-1.amazonaws.com/service-cart:latest
+          docker build -t $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
 
   build-and-push-service-order:
     runs-on: ubuntu-latest
