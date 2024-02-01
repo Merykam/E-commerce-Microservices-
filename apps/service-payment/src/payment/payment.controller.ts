@@ -10,9 +10,10 @@ export class PaymentController {
   
 
   @Post('stripe')
-  async stripMethode(@Body() body: any) {
+  async stripMethode(@Body() body: any, @Res() res){
     console.log(body,"body")
     const {token,product,orderId}=body;
+
     const  order = await this.paymentService.getOrder(orderId);
     if(!order){
       throw new Error('Order not found')
@@ -25,18 +26,25 @@ export class PaymentController {
       throw new Error('Order has been paid')
     }
     const amount=Math.round( order.cart.totalprice * 100);
-    const {id} = await this.stripService.createStripePaymentMethod(token);
-    // const order = await this.paymentService.createPayment(2);
+    const {id} = await this.stripService.createStripePaymentMethod(token.id);
+    console.log(id,"id");
+    const paymentIntent = await this.stripService.createPaymentIntent(amount, id);
+    console.log(paymentIntent,"paymentIntent")
+    if(paymentIntent.status === 'succeeded'){
+      const updateOrder=await this.paymentService.updateOrder(order);
+      console.log(updateOrder,"updateOrder");
+    }
+    return res.json({'paymentStatus':paymentIntent.status});
   }
-  @Post('paypal')
-  async getOrder(@Res() res  ) {
-    const order = await this.paymentService.paypalPayment(2);
-    console.log(order,"order")
-    res.redirect(order);
-  }
-@Get('success')
-async success(@Query('paymentId') paymentId:string,@Query('PayerID') PayerID:string,@Res() res  ) {
-  const order = await this.paymentService.executePaymentPaypal(paymentId,PayerID);
-  res.redirect('http://localhost:3003/sevice-payment');
-}
+  // @Post('paypal')
+  // async getOrder(@Res() res  ) {
+    // const order = await this.paymentService.paypalPayment(2);
+    // console.log(order,"order")
+    // res.redirect(order);
+  // }
+// @Get('success')
+// async success(@Query('paymentId') paymentId:string,@Query('PayerID') PayerID:string,@Res() res  ) {
+//   const order = await this.paymentService.executePaymentPaypal(paymentId,PayerID);
+//   res.redirect('http://localhost:3003/sevice-payment');
+// }
 }
