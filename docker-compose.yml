@@ -4,7 +4,7 @@ services:
   service-cart:
     build:
       context: .
-      dockerfile: apps/service-cart/service-cart.Dockerfile
+      dockerfile: apps/service-cart/.Dockerfile
     ports:
       - '9000:9000'
 

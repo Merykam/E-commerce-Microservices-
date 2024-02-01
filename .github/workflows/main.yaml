@@ -63,17 +63,10 @@ jobs:
           REPOSITORY: service-cart
         working-directory: apps/service-cart
         run: |
-          docker build -t $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG -f Dockerfile .
+          docker build -t $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG -f apps/service-cart/Dockerfile .
           docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
-      - name: Debug Information
-        run: |
-          pwd
-          ls -al
-          echo $ECR_REGISTRY
-          echo $REPOSITORY
-          echo $IMAGE_TAG
-          env
+
 
   build-and-push-service-order:
     runs-on: ubuntu-latest
