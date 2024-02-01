@@ -1,10 +1,11 @@
 import { Body, Controller, Get, Post, Query, Res} from '@nestjs/common';
 import { PaymentService } from './payment.service';
+import { StripeService } from './stripe/stripe.service';
 
 
 @Controller('payment')
 export class PaymentController {
-  constructor(private readonly paymentService: PaymentService) {}
+  constructor(private readonly paymentService: PaymentService,private readonly stripService:StripeService) {}
 
   
 
@@ -24,7 +25,7 @@ export class PaymentController {
       throw new Error('Order has been paid')
     }
     const amount=Math.round( order.cart.totalprice * 100);
-    
+    const {id} = await this.stripService.createStripePaymentMethod(token);
     // const order = await this.paymentService.createPayment(2);
   }
   @Post('paypal')
