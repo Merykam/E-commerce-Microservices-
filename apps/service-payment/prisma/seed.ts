@@ -74,14 +74,14 @@ async function seed() {
         {
           orderId: order1.id,
           amount: cart1.totalprice,
-          methodId: 'PayPal',
-          stripeSessionId: 'stripe_session_id_1',
+          methodPayment: 'PayPal',
+          // stripeSessionId: 'stripe_session_id_1',
         },
         {
           orderId: order2.id,
           amount: cart2.totalprice,
-          methodId: 'Stripe',
-          stripeSessionId: 'stripe_session_id_2',
+          methodPayment: 'Stripe',
+          // stripeSessionId: 'stripe_session_id_2',
         },
       ],
     });

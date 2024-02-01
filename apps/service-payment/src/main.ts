@@ -4,7 +4,7 @@ import { ServicePaymentModule } from './service-payment.module';
 async function bootstrap() {
   const app = await NestFactory.create(ServicePaymentModule);
   app.enableCors({
-    origin: 'http://localhost:3000/',
+    origin: 'http://localhost:3000',
     credentials: true, 
   });
   await app.listen(3003);

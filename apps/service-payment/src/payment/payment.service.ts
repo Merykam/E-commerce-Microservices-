@@ -24,16 +24,23 @@ export class PaymentService {
             }
           }
         })
-        if(!order){
-          throw new Error('Order not found')
-        }
-        if(order.status !=='Pending'){
-          throw new Error('Order has been paid')
-        }
         return order;
       } catch (error) {
         throw error;
       }
+  }
+  async findPaymentByOrderId(id:number){
+    try {
+      const payment=await this.prisma.payment.findFirst({
+        where:{
+          orderId:id
+        }
+      })
+      return payment;
+    } catch (error) {
+      console.log(error.code);
+      throw error;
+    }
   }
   async updateOrder(order:{id:number}){
     const updateOrder=await this.prisma.order.update({
@@ -146,7 +153,7 @@ export class PaymentService {
     }
   }
 
-  
+
   async createPaymentIntent(order:{id:number,cart:{totalprice:number},customer:{name:string}}){
     try { 
       const amount=Math.round( order.cart.totalprice * 100);
