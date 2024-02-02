@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { CreateAuthDto, UpdateAuthDto, LoginAuthDto } from './dto';
 import { AuthRepository } from './auth.repository';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { EmailService } from '../helpers/mail/mail.service';
 
@@ -68,19 +68,17 @@ export class AuthService {
     try {
       const user = await this.authRepository.findOneByEmail(loginAuthDto.email);
       if (!user) {
-        return [
-          {
-            message: 'Invalid email',
-          },
-        ];
+        return {
+          status: false,
+          message: 'Invalid email',
+        };
       }
 
       if (user && !user.emailVerify) {
-        return [
-          {
-            message: 'Email not verified',
-          },
-        ];
+        return {
+          status: false,
+          message: 'Email not verified',
+        };
       }
 
       const validPassword = await bcrypt.compare(
@@ -89,11 +87,10 @@ export class AuthService {
       );
 
       if (!validPassword) {
-        return [
-          {
-            message: 'Invalid password',
-          },
-        ];
+        return {
+          status: false,
+          message: 'Invalid password',
+        };
       }
 
       const payload = {
@@ -102,12 +99,16 @@ export class AuthService {
         id: user._id,
       };
 
+      const token = new JwtService({
+        secret: process.env.SECREtKEYJWT,
+        signOptions: { expiresIn: '2day' },
+      }).sign(payload);
+
       return {
+        status: true,
         message: 'User logged in successfully',
-        access_token: new JwtService({
-          secret: process.env.SECREtKEYJWT,
-          signOptions: { expiresIn: '2day' },
-        }).sign(payload),
+        access_token: token,
+        info: payload,
       };
     } catch (error) {
       return error;

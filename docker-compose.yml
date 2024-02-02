@@ -1,31 +1,25 @@
 version: '3.8'
 
 services:
-  service-cart:
-    build:
-      context: .
-      dockerfile: apps/service-cart/service-cart.Dockerfile
-    ports:
-      - '9000:9000'
+  # service-cart:
+  #   build:
+  #     context: .
+  #     dockerfile: apps/service-cart/Dockerfile
+  #   ports:
+  #     - '9000:9000'
 
   service-authentification:
     build:
       context: .
-      dockerfile: apps/service-authentification/serviceAuthentification.Dockerfile
+      dockerfile: apps/service-authentification/Dockerfile
     ports:
-      - '3001:3001'
-
-  # mongodb:
-  #   image: mongo:latest
-  #   ports:
-  #     - '27017:27017'
-
-  postgres:
-    image: postgres:latest
-    ports:
-      - '5432:5432'
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - '3005:3005'
+    depends_on:
+      - mongodb
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_DB: service-cart
+      MONGO_URI: 'mongodb://127.0.0.1:27017/service-authentification'
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - '27017:27017'

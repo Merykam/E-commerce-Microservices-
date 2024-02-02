@@ -1,14 +1,22 @@
+'use client';
+import { StateLogin } from '@/@fake-db/auth/authentification';
+import Image from 'next/image';
+import image from "../../styles/images/logo.png"
+
 import Link from 'next/link';
 
 export default function login() {
+  const serviceState = StateLogin();
+
+  const { statelogin, handleChange, handleCheck, handleSubmit } = serviceState;
   return (
     <div>
       <div className="grid w-full grow grid-cols-1 place-items-center">
         <div className="w-full max-w-[26rem] p-4 sm:px-5">
           <div className="text-center">
-            <img
+            <Image
               className="mx-auto h-20 w-20"
-              src="https://www.dynamicmarketing.eu/wp-content/uploads/2018/06/ecommerce.logo_.png"
+              src={image}
               alt="logo"
             />
             <div className="mt-4">
@@ -22,12 +30,15 @@ export default function login() {
           </div>
           <div className="card mt-5 rounded-lg p-5 lg:p-7">
             <label className="block">
-              <span>Username:</span>
+              <span>Email:</span>
               <span className="relative mt-1.5 flex">
                 <input
                   className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                  placeholder="Enter Username"
+                  placeholder="Enter Email"
                   type="text"
+                  name="email"
+                  value={statelogin.email}
+                  onChange={handleChange}
                 />
                 <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                   <svg
@@ -53,7 +64,9 @@ export default function login() {
                 <input
                   className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   placeholder="Enter Password"
+                  name="password"
                   type="password"
+                  onChange={handleChange}
                 />
                 <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                   <svg
@@ -88,7 +101,10 @@ export default function login() {
                 Forgot Password?
               </a>
             </div>
-            <button className="btn mt-5 w-full bg-primary font-medium text-white bg-violet-600 hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90 rounded-lg p-2">
+            <button
+              onClick={handleSubmit}
+              className="btn mt-5 w-full bg-primary font-medium text-white bg-violet-600 hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90 rounded-lg p-2"
+            >
               Sign In
             </button>
             <div className="mt-4 text-center text-xs+">

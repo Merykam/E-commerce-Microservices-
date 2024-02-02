@@ -1,13 +1,21 @@
+'use client';
+import { StateRegister } from '@/@fake-db/auth/authentification';
+import Image from 'next/image';
+import image from "../../styles/images/logo.png"
 import Link from 'next/link';
 export default function register() {
+  const serviceState = StateRegister();
+
+  const { stateregister, handleChange, handleCheck, handleSubmit } =
+    serviceState;
   return (
     <div>
       <div className="grid w-full grow grid-cols-1 place-items-center">
         <div className="w-full max-w-[26rem] p-4 sm:px-5">
           <div className="text-center">
-            <img
+            <Image
               className="mx-auto h-20 w-20"
-              src="https://www.dynamicmarketing.eu/wp-content/uploads/2018/06/ecommerce.logo_.png"
+              src={image}
               alt="logo"
             />
             <div className="mt-4">
@@ -25,6 +33,35 @@ export default function register() {
                 className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                 placeholder="Username"
                 type="text"
+                name="username"
+                value={stateregister.username}
+                onChange={handleChange}
+              />
+              <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 transition-colors duration-200"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+              </span>
+            </label>
+            <label className="relative mt-4 flex">
+              <input
+                className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                placeholder="Email"
+                type="email"
+                name="email"
+                value={stateregister.email}
+                onChange={handleChange}
               />
               <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                 <svg
@@ -48,6 +85,9 @@ export default function register() {
                 className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                 placeholder="Password"
                 type="password"
+                name="password"
+                value={stateregister.password}
+                onChange={handleChange}
               />
               <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                 <svg
@@ -71,6 +111,9 @@ export default function register() {
                 className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                 placeholder="Repeat Password"
                 type="password"
+                name="passwordConfirm"
+                value={stateregister.passwordConfirm}
+                onChange={handleChange}
               />
               <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                 <svg
@@ -104,7 +147,10 @@ export default function register() {
                 </a>
               </p>
             </div>
-            <button className="btn mt-5 w-full bg-primary font-medium text-white bg-violet-600 rounded-lg p-2 hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+            <button
+              onClick={handleSubmit}
+              className="btn mt-5 w-full bg-primary font-medium text-white bg-violet-600 rounded-lg p-2 hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+            >
               Sign Up
             </button>
             <div className="mt-4 text-center text-xs+">
