@@ -32,6 +32,7 @@ export class PaymentController {
     console.log(paymentIntent,"paymentIntent")
     if(paymentIntent.status === 'succeeded'){
       const updateOrder=await this.paymentService.updateOrder(order);
+      const createPayment=await this.paymentService.createPayment(order,'Stripe');
       console.log(updateOrder,"updateOrder");
     }
     return res.json({'paymentStatus':paymentIntent.status});

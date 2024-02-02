@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import StripeCheckout, { Token } from 'react-stripe-checkout';
+import StripeCheckout,  {Token } from 'react-stripe-checkout';
+
+
 const Stripe = () => {
  const [product,setProduct] =useState({name:"React from FB",price:10,productBy:"facebook"})
  const yy=process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY
@@ -8,8 +10,10 @@ const Stripe = () => {
   //  console.log('Received token:', token);
   const body={
     token,
-    product
+    product,
+    orderId:2
   }
+  
   const headers={
     "Content-Type":"application/json"
   }
@@ -26,7 +30,7 @@ const Stripe = () => {
   return (
     <div>
       Stripe
-      <StripeCheckout stripeKey={process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!} token={handleToken} name='buy by react'/>
+      <StripeCheckout stripeKey={process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!} token={handleToken} name='buy by react' amount={product.price*1000} />
     </div>
   )
 }
