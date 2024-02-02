@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use client';
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
@@ -38,6 +39,9 @@ const Table = () => {
   showProducts();
     
     },[])
+=======
+import Dashboard from '@/components/layout/layout';
+>>>>>>> b23c1f996c6e628f75f0d5f1885c0c8fc90d78dc
 
 
   return (
