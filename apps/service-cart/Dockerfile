@@ -7,18 +7,6 @@ RUN npm install
 
 COPY . .
 
+EXPOSE 9000
+
 RUN npm run build
-
-
-# FROM node:20.10.0 as Production
-# ARG NODE_ENV=production
-# ENV NODE_ENV=${NODE_ENV}
-# WORKDIR /apps/service-cart
-
-# COPY package*.json ./
-
-# RUN npm install --only=production
-
-# COPY --from=Developpment /apps/service-cart/dist ./dist
-
-# CMD ["node", "dist/main"]
