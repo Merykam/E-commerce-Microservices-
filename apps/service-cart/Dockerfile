@@ -1,6 +1,6 @@
 FROM node:20.10.0 as Developpment
 
-WORKDIR /apps/service-cart
+WORKDIR /service-cart
 
 COPY package*.json ./
 RUN npm install
@@ -11,8 +11,9 @@ RUN npm run build
 
 
 FROM node:20.10.0 as Production
-
-WORKDIR /apps/service-cart
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+WORKDIR /service-cart
 
 COPY package*.json ./
 
