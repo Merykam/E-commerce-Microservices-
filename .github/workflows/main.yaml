@@ -71,7 +71,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: task-definition-service-cart-revision1.json
+          task-definition: apps/service-cart/task-definition-service-cart-revision1.json
           container-name: image-service-cart-container
           image: ${{env.ECR_REGISTRY}}/${{env.REPOSITORY}}:${{env.IMAGE_TAG}}
 
