@@ -1,11 +1,12 @@
-import { Body, Controller, Get, Post, Query, Res} from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Req, Res} from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { StripeService } from './stripe/stripe.service';
+import { PaypalService } from './paypal/paypal.service';
 
 
 @Controller('payment')
 export class PaymentController {
-  constructor(private readonly paymentService: PaymentService,private readonly stripService:StripeService) {}
+  constructor(private readonly paymentService: PaymentService,private readonly stripService:StripeService,private readonly paypalService:PaypalService) {}
 
   
 
@@ -37,12 +38,13 @@ export class PaymentController {
     }
     return res.json({'paymentStatus':paymentIntent.status});
   }
-  // @Post('paypal')
-  // async getOrder(@Res() res  ) {
-    // const order = await this.paymentService.paypalPayment(2);
-    // console.log(order,"order")
-    // res.redirect(order);
-  // }
+  @Post('paypal')
+  async getOrder(@Req() req ,@Res() res  ) {
+    console.log(req.body,"req");
+    const url = await this.paypalService.paypalPayment(2);
+    console.log(url,"url")
+     return res.json({'url':url});
+  }
 // @Get('success')
 // async success(@Query('paymentId') paymentId:string,@Query('PayerID') PayerID:string,@Res() res  ) {
 //   const order = await this.paymentService.executePaymentPaypal(paymentId,PayerID);
