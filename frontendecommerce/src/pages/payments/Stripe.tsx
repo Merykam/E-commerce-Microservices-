@@ -7,7 +7,6 @@ const Stripe = () => {
  const yy=process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY
   console.log(yy)
   const handleToken = (token: Token) => {
-  //  console.log('Received token:', token);
   const body={
     token,
     product,
@@ -29,8 +28,7 @@ const Stripe = () => {
 };
   return (
     <div>
-      Stripe
-      <StripeCheckout stripeKey={process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!} token={handleToken} name='buy by react' amount={product.price*1000} />
+      <StripeCheckout stripeKey={process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!} token={handleToken} name='Buy by stripe' amount={product.price*1000} style={{ width: '200px',padding:'5px',marginTop:'5px' }}  />
     </div>
   )
 }
