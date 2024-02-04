@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 const paypal = require('paypal-rest-sdk');
 @Injectable()
 export class PaypalService {
-async paypalPayment(orderId: number) {
+async paypalPayment(orderId: number,order:any) {
     try {
       // const order = await this.getOrder(orderId);
       // const paymentData: any = {
@@ -17,29 +17,29 @@ async paypalPayment(orderId: number) {
         client_id: 'Ad80uyYqrBtJNO8xk0UkHwYeYVvdjv26cZyOEo_1JK5HwAKApru8yakNAh7zV8q6MnjETlUjQKVZj5u-',
         client_secret: 'EHwhdHouzKMjo3eCEqSLsEQs_lPP8nrW9iq49tiB3EOG8iLRk0hlJYdKUnJK46SlwUb_PdEMBLYtEZ9H',
       });
-  
+      // const amount= order!.cart.totalprice;
       const create_payment_json = {
         "intent": "sale",
         "payer": {
           "payment_method": "paypal",
         },
         "redirect_urls": {
-          "return_url": "http://localhost:3003/payment/success",
+          "return_url": `http://localhost:3003/payment/success?orderId=${orderId}`,
           "cancel_url": "http://localhost:3003/payment/cancel",
         },
         "transactions": [{
-          "item_list": {
-            "items": [{
-              "name": "item",
-              "sku": "001",
-               "price": "19.99",
-              "currency": "USD",
-              "quantity": 1, // Add the quantity property
-            }],
-          },
+          // "item_list": {
+          //   "items": [{
+          //     "name": "item",
+          //     "sku": "001",
+          //      "price": amount,
+          //     "currency": "USD",
+          //     "quantity": 1, 
+          //   }],
+          // },
           "amount": {
             "currency": "USD",
-             "total": "19.99",
+             "total": order!.cart.totalprice,
           },
           "description": "This is the payment description.",
         }],
@@ -67,15 +67,16 @@ async paypalPayment(orderId: number) {
     }
   }
 
-  async executePaymentPaypal(paymentId: string, PayerID: string) {
+  async executePaymentPaypal(paymentId: string, PayerID: string,order:any) {
     console.log(paymentId,"ddddd", PayerID)
+    // const amount=Math.round( order!.cart.totalprice * 100);
     const execute_payment_json = {
       payer_id: PayerID,
       transactions: [
         {
           amount: {
             currency: 'USD',
-            total: '19.99', 
+            total: order!.cart.totalprice, 
           },
         },
       ],
@@ -90,7 +91,7 @@ async paypalPayment(orderId: number) {
           console.log('Get Payment Response');
           if (payment) {
             console.log(JSON.stringify(payment));
-
+            return payment;
           } else {
             console.error('Payment object is undefined');
           }
