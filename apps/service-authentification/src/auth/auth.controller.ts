@@ -56,16 +56,15 @@ export class AuthController {
       });
     }
 
-    return res
-      .cookie('jwt', user.access_token, {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
-      })
-      .status(HttpStatus.CREATED)
-      .json({
-        data: user.info,
-      });
+    res.cookie('jwt', user.access_token, {
+      httpOnly: true,
+      secure: true,
+    });
+
+    return res.status(HttpStatus.OK).json({
+      message: 'User logged in successfully',
+      data: user,
+    });
   }
 
   @Get('verify-email/:email/:token')

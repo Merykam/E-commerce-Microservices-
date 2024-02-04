@@ -47,7 +47,7 @@ export const StateLogin = () => {
       await dispatch(setLogin(data?.data));
 
       if (isError) {
-        toast.error(error?.data.message);
+        toast.error(error?.data?.message);
       }
 
       if (isSuccess) {
@@ -103,7 +103,9 @@ export const StateRegister = () => {
       }
 
       if (isError) {
-        toast.error(error.data.message[0]);
+        console.log(error);
+        
+        toast.error(error?.data?.message[0]);
       }
     })();
   }, [data, isSuccess, isError, error]);

@@ -12,3 +12,17 @@ export const ApiSlice = createApi({
   baseQuery: BaseQuery,
   endpoints: (builder) => ({}),
 });
+
+
+export const BaseQueryProduct = fetchBaseQuery({
+  baseUrl: 'http://localhost:9000',
+  prepareHeaders: (headers) => {
+    return headers;
+  },
+  credentials: 'include',
+});
+
+export const ApiSliceProduct = createApi({
+  baseQuery: BaseQueryProduct,
+  endpoints: (builder) => ({}),
+});

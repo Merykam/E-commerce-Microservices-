@@ -9,9 +9,12 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: '.env',
       isGlobal: true,
     }),
-    MongooseModule.forRoot('mongodb://localhost/service-authentification', {
-      autoCreate: true,
-    }),
+    MongooseModule.forRoot(
+      'mongodb+srv://rachid:rachid1234567890@cluster0.4k3tkhp.mongodb.net/service-authentification?retryWrites=true&w=majority',
+      {
+        autoCreate: true,
+      },
+    ),
     AuthModule,
   ],
 })
