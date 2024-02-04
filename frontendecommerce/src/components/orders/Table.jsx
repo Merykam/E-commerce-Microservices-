@@ -2,6 +2,7 @@ import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import ReactLoading from 'react-loading';
 const Table = ({ data, fields }) => {
+  console.log(data);
   return (
     <>
       {fields && data && data.length != 0 && (

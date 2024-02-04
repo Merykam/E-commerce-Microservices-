@@ -23,3 +23,10 @@ services:
     image: mongo:latest
     ports:
       - '27017:27017'
+
+  service-order:
+    build:
+      context: .
+      dockerfile: apps/service-order/Dockerfile
+    ports:
+      - '8080:8080'

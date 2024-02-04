@@ -1,5 +1,4 @@
 const TableHeader = ({ fields }) => {
-  console.log(fields);
   return (
     <>
       {fields && (

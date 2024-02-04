@@ -1,10 +1,21 @@
 import Head from 'next/head';
-import Dashboard from '../layout';
+import Dashboard from '@/components/layout/layout';
 import Table from '@/components/orders/Table';
 import OrdersIcon from '@/icons/OrdersIcon';
-// import '_/styles/orders.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { useEffect } from 'react';
+import { fetchOrders } from '@/redux/features/order/orderSlice';
+import { OrderEntity } from '@/redux/features/order/OrderEntity';
 
 const orders = () => {
+  const dispatch = useDispatch();
+  const orders = useSelector((state: RootState) => state?.order?.orders);
+
+  useEffect(() => {
+    if (!orders.length) dispatch(fetchOrders());
+  }, [dispatch]);
+
   return (
     <Dashboard>
       <Head>
@@ -14,7 +25,10 @@ const orders = () => {
         {' '}
         <OrdersIcon className={`h-[1.2em] fill-blue-900`} /> Orders
       </h1>
-      <Table data={[]} fields={['id', 'price']}></Table>
+      <Table
+        data={orders}
+        fields={['id', 'quantity', 'totalPrice', 'status', 'paid']}
+      ></Table>
     </Dashboard>
   );
 };
