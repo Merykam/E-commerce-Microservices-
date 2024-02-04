@@ -10,7 +10,7 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
     }),
     MongooseModule.forRoot(
-      'mongodb+srv://rachid:rachid1234567890@cluster0.4k3tkhp.mongodb.net/service-authentification?retryWrites=true&w=majority',
+      'mongodb+srv://ossamakharbaq:123AZERTY@cluster0.mdhufrc.mongodb.net/service-authentication?retryWrites=true&w=majority',
       {
         autoCreate: true,
       },

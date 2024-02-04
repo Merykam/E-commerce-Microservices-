@@ -96,6 +96,29 @@ jobs:
           node-version: '20.10.0'
       - name: Install dependencies
         run: npm install
+  
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: AKIAVJJFKWM5IMXJRTBG
+          aws-secret-access-key: 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
+          aws-region: eu-north-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          registry: 363539903290.dkr.ecr.eu-north-1.amazonaws.com/orderservice
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: latest
+          REPOSITORY: orderservice
+        run: |
+          docker build -t $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
 
   build-and-push-service-payment:
     runs-on: ubuntu-latest
