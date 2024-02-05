@@ -15,9 +15,16 @@ const Layout: React.FC<DashboardProps> = ({ children }) => {
     <>
       <div className="bg-gray-50">
         <Header />
+        <Mobile />
+        
         {/* <Mobile /> */}
         <Sidebar />
+       
         <Main>{children}</Main>
+       
+        
+  
+      
       </div>
     </>
   );

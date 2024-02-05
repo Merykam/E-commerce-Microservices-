@@ -1,0 +1,36 @@
+/* fail.module.css */
+
+.jumbotron {
+  background-color: #f5f8fc;
+}
+
+.jumbotron h2 {
+  color: #000;
+  font-size: 3em;
+  font-weight: bold;
+  margin: .25em 0;
+}
+
+.jumbotron p {
+  color: #000;
+}
+
+.jumbotron .container-login100-form-btn {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 250px;
+}
+
+.checkMark {
+  -webkit-animation: show 1s linear forwards .5s;
+  -ms-animation: show 1s linear forwards .5s;
+  animation: show 1s linear forwards .5s;
+  border: 2px solid #529c29;
+  border-radius: 50%;
+  height: 100px;
+  margin: 0 auto;
+  padding: 1.5em;
+  width: 100px;
+}
+
+/* ... (rest of your styles) */

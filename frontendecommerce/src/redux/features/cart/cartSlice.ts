@@ -12,14 +12,14 @@ const cartSlice = createSlice({
   reducers: {
     addOrderInCart: (state, action) => {
       let data = {
-        id: action.payload.id,
+        _id: action.payload._id,
         name: action.payload.name,
         image: action.payload.image,
         price: action.payload.price,
         qnt: 1,
       };
 
-      let index = state.shoppingCart.findIndex((item) => item.id === data.id);
+      let index = state.shoppingCart.findIndex((item) => item._id === data._id);
 
       if (index !== -1) {
         state.shoppingCart[index].qnt += 1;
@@ -31,13 +31,13 @@ const cartSlice = createSlice({
     increment: (state, action) => {
       console.log(action.payload)
       let index = state.shoppingCart.findIndex(
-        (item) => item.id === action.payload,
+        (item) => item._id === action.payload,
       );
       state.shoppingCart[index].qnt += 1;
     },
     decrement: (state, action) => {
       let index = state.shoppingCart.findIndex(
-        (item) => item.id === action.payload,
+        (item) => item._id === action.payload,
       );
 
       state.shoppingCart[index].qnt -= 1;
