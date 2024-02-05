@@ -15,7 +15,7 @@ export const ApiSlice = createApi({
 
 
 export const BaseQueryProduct = fetchBaseQuery({
-  baseUrl: 'http://localhost:9000',
+  baseUrl: 'http://localhost:3003/api',
   prepareHeaders: (headers) => {
     return headers;
   },
