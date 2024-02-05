@@ -2,7 +2,7 @@ import LayoutHome from '@/components/layout/layoutHome';
 import { serviceProduct } from '../api/product';
 import { useDispatch } from 'react-redux';
 import { addOrderInCart } from '@/redux/features/cart/cartSlice';
-
+// jhdj
 const Products = () => {
   const dispatch = useDispatch();
   const serviceproduct = serviceProduct();
