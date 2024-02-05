@@ -4,6 +4,7 @@ import productSlice from './features/product/productSlice';
 import { authApi } from './service/auth/authApi';
 import { productApi } from './service/product/productApi';
 import cartSlice from './features/cart/cartSlice';
+import orderSlice from './features/order/orderSlice';
 export const makeStore = () => {
   return configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const makeStore = () => {
       product: productSlice,
       [productApi.reducerPath]: productApi.reducer,
       cart: cartSlice,
+      order: orderSlice,
     },
 
     middleware: (getDefaultMiddleware) =>

@@ -4,7 +4,7 @@ interface DashboardProps {
   children: ReactNode;
 }
 
-const Main: React.FC<DashboardProps>  = ({ children }) => {
+const Main: React.FC<DashboardProps> = ({ children }) => {
   return (
     <>
       <div>
