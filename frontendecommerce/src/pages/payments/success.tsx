@@ -1,10 +1,9 @@
 import React from 'react';
-
+import Header from '../../components/Header/index';
 const SuccessPage = () => {
   const styleContent = `
     body {
       text-align: center;
-      padding: 40px 0;
       background: #EBF0F5;
     }
     h1 {
@@ -32,12 +31,13 @@ const SuccessPage = () => {
       border-radius: 4px;
       box-shadow: 0 2px 3px #C8D0D8;
       display: inline-block;
-      margin: 0 auto;
+      margin:  20px;
     }
   `;
 
   return (
     <div>
+      <Header/>
       <style dangerouslySetInnerHTML={{ __html: styleContent }} />
       <div className="card">
         <div style={{ borderRadius: '200px', height: '200px', width: '200px', background: '#F8FAF5', margin: '0 auto' }}>
