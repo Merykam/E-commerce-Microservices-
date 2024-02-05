@@ -3,20 +3,20 @@ import { ProductService } from './product.service';
 import { Product } from './schemas/product.schema';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { AdminService } from 'apps/service-product/admin/admin.service';
+// import { AdminService } from 'apps/service-product/admin/admin.service';
 import { Response } from 'express';
 
 
 @Controller('api/product')
 export class ProductController {
-    constructor(private productService:ProductService, private adminService:AdminService){}
+    constructor(private productService:ProductService){}
  
  
     @Get('search')
     async searchProducts(@Query() query: any): Promise<Product[]> {
-        console.log("hello");
+        // console.log("hello");
         
-        console.log(query);
+        // console.log(query);
         const products = await this.productService.searchP(query);
         return products;
     }
@@ -29,7 +29,7 @@ export class ProductController {
         data: products,
       });
     } catch (error) {
-      console.error('Error retrieving products:', error);
+      // console.error('Error retrieving products:', error);
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         error: 'Internal Server Error',
       });

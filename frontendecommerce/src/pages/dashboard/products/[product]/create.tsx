@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import Layout from '../../layout';
 
-const update = () => {
+const create = () => {
     const [formData, setFormData] = useState({
         name: '',
         category: '',
-        prix: '',
+        price: '',
         description:''
     });
 
@@ -31,20 +32,21 @@ const update = () => {
         }
     };
   return (
+    <Layout>
     <div>
 
 
-    <div className='w-sreen h-screen flex items-center justify-center'>
+    <div className='flex items-center justify-center'>
        
       <form onSubmit={handleData} className="w-full max-w-lg">
 
         
     <div className='flex  justify-center pb-16 font-extrabold text-xl'>
-    <h1>Update product</h1>
+    <h1>Add product</h1>
     </div>
        
       
-  <div className="flex flex-wrap -mx-3 mb-6">
+  <div className="flex flex-wrap -mx-3 ">
     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
          Name
@@ -64,7 +66,7 @@ const update = () => {
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
         Prix
       </label>
-      <input name='prix' onChange={handleInputChange}  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="number" />
+      <input name='price' onChange={handleInputChange}  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="number" />
     
     </div>
   </div>
@@ -83,7 +85,8 @@ const update = () => {
 </form>
     </div>
     </div>
+    </Layout>
   )
 }
 
-export default update
+export default create

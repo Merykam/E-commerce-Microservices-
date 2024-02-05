@@ -13,11 +13,14 @@ services:
       context: .
       dockerfile: apps/service-authentification/Dockerfile
     ports:
-      - '3005:3005'
-    depends_on:
-      - mongodb
-    environment:
-      MONGO_URI: 'mongodb://127.0.0.1:27017/service-authentification'
+      - '3001:3001'
+
+  service-product:
+    build:
+      context: .
+      dockerfile: apps/service-product/Dockerfile
+    ports:
+      - '3003:3003'
 
   mongodb:
     image: mongo:latest
