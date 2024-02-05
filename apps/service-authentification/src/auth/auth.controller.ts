@@ -8,17 +8,10 @@ import {
   Delete,
   HttpStatus,
   Res,
-  UseGuards,
-  SetMetadata,
-  Redirect,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginAuthDto, UpdateAuthDto, CreateAuthDto } from './dto';
 import { Response } from 'express';
-import { UseInterceptors } from '@nestjs/common';
-import { CacheInterceptor, CacheKey } from '@nestjs/cache-manager';
-import { Roles } from '../roles/role.enum';
-import { AuthGuard } from '../guards/AuthGuard';
 
 @Controller('auth')
 export class AuthController {
@@ -34,11 +27,7 @@ export class AuthController {
     });
   }
 
-  @UseInterceptors(CacheInterceptor)
-  @CacheKey('getCarts')
-  @Get()
-  @UseGuards(AuthGuard)
-  @SetMetadata('roles', [Roles.Admin])
+
   async findAll() {
     return await this.authService.findAll();
   }
