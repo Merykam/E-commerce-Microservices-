@@ -4,7 +4,7 @@ services:
   # service-cart:
   #   build:
   #     context: .
-  #     dockerfile: apps/service-cart/service-cart.Dockerfile
+
   #   ports:
   #     - '9000:9000'
 
@@ -18,21 +18,22 @@ services:
   service-product:
     build:
       context: .
-      dockerfile: apps/service-product/.Dockerfile
+      dockerfile: apps/service-authentification/Dockerfile
     ports:
-      - '3003:3003'
+      - '3005:3005'
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: 'mongodb://127.0.0.1:27017/service-authentification'
 
-  # mongodb:
-  #   image: mongo:latest
-  #   ports:
-  #     - '27017:27017'
+  mongodb:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
 
-  # postgres:
-  #   image: postgres:latest
-  #   ports:
-  #     - '5432:5432'
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_DB: service-cart
+  service-order:
+    build:
+      context: .
+      dockerfile: apps/service-order/Dockerfile
+    ports:
+      - '8080:8080'

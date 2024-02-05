@@ -4,7 +4,9 @@ import * as mongoose from 'mongoose';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://127.0.0.1:2717/service-authentification'),
+    MongooseModule.forRoot(
+      'mongodb+srv://rachid:rachid1234567890@cluster0.4k3tkhp.mongodb.net/service-authentification?retryWrites=true&w=majority',
+    ),
   ],
 })
 export class DATABASE_CONNECTION {}

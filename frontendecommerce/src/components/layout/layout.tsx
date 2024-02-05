@@ -1,9 +1,9 @@
 'use client';
-import Header from '@/components/header';
-import Sidebar from '@/components/Sidebar';
-import Mobile from '@/components/mobile';
-import Main from '@/components/main';
-import Footer from '@/components/footer';
+import Header from '../header';
+import Sidebar from '../Sidebar';
+import Mobile from '../mobile';
+import Main from '../main';
+import Footer from '../footer';
 import React, { ReactNode } from 'react';
 
 interface DashboardProps {
@@ -17,6 +17,7 @@ const Layout: React.FC<DashboardProps> = ({ children }) => {
         <Header />
         <Mobile />
         
+        {/* <Mobile /> */}
         <Sidebar />
        
         <Main>{children}</Main>

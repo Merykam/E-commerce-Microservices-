@@ -29,7 +29,6 @@ export class OrderItemsValidationPipe implements PipeTransform {
     }
 
     if (validOrderItems.length === orderItems.length) {
-        console.log("hii");
         return { ...orderDTO, orderItems: validOrderItems };
     } else {
       throw new BadRequestException('Invalid order items');
