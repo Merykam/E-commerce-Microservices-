@@ -5,15 +5,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './Schema/auth..schema';
 import { AuthRepository } from './auth.repository';
 import { JwtModule } from '@nestjs/jwt';
-import { RedisCacheModule } from '../config/redis/redis.module';
 import { MailModule } from '../helpers/mail/mail.module';
 import { EmailService } from '../helpers/mail/mail.service';
 import { AuthGuard } from '../guards/AuthGuard';
 import { APP_GUARD } from '@nestjs/core';
+import { DATABASE_CONNECTION } from '../config/database/database.module';
 
 @Module({
   imports: [
-    RedisCacheModule,
+    DATABASE_CONNECTION,
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     JwtModule.register({
       global: true,

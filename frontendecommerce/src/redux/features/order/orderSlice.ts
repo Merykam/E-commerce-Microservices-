@@ -9,7 +9,7 @@ interface OrderState {
 }
 
 const initialState: OrderState = {
-  orders:[],
+  orders: [],
 };
 
 export const fetchOrders = createAsyncThunk('order/fetch', async () => {
@@ -20,15 +20,32 @@ export const fetchOrders = createAsyncThunk('order/fetch', async () => {
     return [];
   }
 });
+export const setOrder = createAsyncThunk(
+  'order/set',
+  async (order: object) => {
+    try {
+      return await orderService.setOrder(order);
+    } catch (error) {
+      toast.error('something went wrong while making order');
+      return [];
+    }
+  },
+);
 const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchOrders.fulfilled, (state, action: PayloadAction<OrderEntity[]>) => {
-      state.orders = action.payload;
-    })
+    builder
+      .addCase(
+        fetchOrders.fulfilled,
+        (state, action: PayloadAction<OrderEntity[]>) => {
+          state.orders = action.payload;
+        },
+      )
+      .addCase(setOrder.fulfilled, (state, action) => {
+        state.orders.push(action.payload);
+      });
   },
 });
 

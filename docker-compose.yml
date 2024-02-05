@@ -1,32 +1,31 @@
 version: '3.8'
 
 services:
-  # service-cart:
-  #   build:
-  #     context: .
-  #     dockerfile: apps/service-cart/Dockerfile
-  #   ports:
-  #     - '9000:9000'
-
+  service-cart:
+    build:
+      context: .
+      dockerfile: apps/service-cart/Dockerfile
+    ports:
+      - '9000:9000'
   service-authentification:
     build:
       context: .
       dockerfile: apps/service-authentification/Dockerfile
     ports:
-      - '3005:3005'
-    depends_on:
-      - mongodb
-    environment:
-      MONGO_URI: 'mongodb://127.0.0.1:27017/service-authentification'
-
-  mongodb:
-    image: mongo:latest
+      - '3001:3001'
+  service-product:
+    build:
+      context: .
+      dockerfile: apps/service-product/Dockerfile
     ports:
-      - '27017:27017'
-
+      - '3003:3003'
   service-order:
     build:
       context: .
       dockerfile: apps/service-order/Dockerfile
     ports:
       - '8080:8080'
+  mongodb:
+    image: mongo:latest
+    ports:
+      - '27017:27017'

@@ -9,12 +9,6 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: '.env',
       isGlobal: true,
     }),
-    MongooseModule.forRoot(
-      'mongodb+srv://ossamakharbaq:123AZERTY@cluster0.mdhufrc.mongodb.net/service-authentication?retryWrites=true&w=majority',
-      {
-        autoCreate: true,
-      },
-    ),
     AuthModule,
   ],
 })
