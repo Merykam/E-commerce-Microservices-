@@ -9,12 +9,12 @@ const Cart = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state?.cart?.shoppingCart);
 
-  const handleIncrement = (id: number) => {
-    dispatch(increment(id));
+  const handleIncrement = (_id: number) => {
+    dispatch(increment(_id));
   };
 
-  const handleDncrement = (id: number) => {
-    dispatch(decrement(id));
+  const handleDncrement = (_id: number) => {
+    dispatch(decrement(_id));
   };
 
   return (
@@ -54,7 +54,7 @@ const Cart = () => {
                           <td className="py-4">
                             <div className="flex items-center">
                               <button
-                                onClick={() => handleDncrement(product.id)}
+                                onClick={() => handleDncrement(product._id)}
                                 className="border rounded-md py-2 px-4 mr-2"
                               >
                                 -
@@ -63,7 +63,7 @@ const Cart = () => {
                                 {product.qnt}
                               </span>
                               <button
-                                onClick={() => handleIncrement(product.id)}
+                                onClick={() => handleIncrement(product._id)}
                                 className="border rounded-md py-2 px-4 ml-2"
                               >
                                 +

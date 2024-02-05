@@ -8,6 +8,7 @@ const Products = () => {
   const serviceproduct = serviceProduct();
   const { products } = serviceproduct;
   const handleAdd = (product: object) => {
+    
     dispatch(addOrderInCart(product));
   };
   return (
