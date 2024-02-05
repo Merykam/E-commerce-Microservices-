@@ -23,10 +23,6 @@ const Table = () => {
       
         console.log(response.data.data);
         setProducts(response.data.data)
-       
-      
-        
-    
 
 
     } catch (error) {

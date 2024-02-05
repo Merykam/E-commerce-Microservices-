@@ -8,7 +8,7 @@ import { AdminModule } from '../admin/admin.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://kamaychmeryem:12345678AZERTY@cluster0.dal8kug.mongodb.net/test?retryWrites=true&w=majority'),
+    MongooseModule.forRoot('mongodb+srv://kamaychmeryem:uiLqB93k4HYK9fvP@cluster0.dal8kug.mongodb.net/test?retryWrites=true&w=majority'),
     // MongooseModule.forRoot('mongodb://127.0.0.1:27017/E-commerce-Products'),
     ProductModule,
     AdminModule
