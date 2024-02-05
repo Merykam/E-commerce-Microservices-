@@ -8,3 +8,4 @@ import { PaymentModule } from './payment/payment.module';
   providers: [ServicePaymentService],
 })
 export class ServicePaymentModule {}
+

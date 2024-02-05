@@ -67,38 +67,39 @@ async paypalPayment(orderId: number,order:any) {
     }
   }
 
-  async executePaymentPaypal(paymentId: string, PayerID: string,order:any) {
-    console.log(paymentId,"ddddd", PayerID)
-    // const amount=Math.round( order!.cart.totalprice * 100);
+  async executePaymentPaypal(paymentId: string, PayerID: string, order: any) {
     const execute_payment_json = {
       payer_id: PayerID,
       transactions: [
         {
           amount: {
             currency: 'USD',
-            total: order!.cart.totalprice, 
+            total: order!.cart.totalprice,
           },
         },
       ],
     };
   
     try {
-      paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
-        if (error) {
-          console.error('Error executing PayPal payment:', error.response ? error.response.data : error.message);
-          throw error;
-        } else {
-          console.log('Get Payment Response');
-          if (payment) {
-            console.log(JSON.stringify(payment));
-            return payment;
+      return new Promise((resolve, reject) => {
+        paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+          if (error) {
+            console.error('Error executing PayPal payment:', error.response ? error.response.data : error.message);
+            reject(error);
           } else {
-            console.error('Payment object is undefined');
+            console.log('Get Payment Response');
+            if (payment) {
+              resolve(payment);
+            } else {
+              console.error('Payment object is undefined');
+              reject(new Error('Payment object is undefined'));
+            }
           }
-        }
+        });
       });
     } catch (error) {
-      console.error('Error executing PayPal payment:', error.response ? error.response.data : error.message);
+      console.error('Error in executePaymentPaypal:', error);
+      throw error;
     }
   }
-}
+  }

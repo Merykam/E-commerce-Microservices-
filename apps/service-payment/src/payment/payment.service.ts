@@ -24,6 +24,9 @@ export class PaymentService {
             }
           }
         })
+        if(!order){
+          throw new Error('Order not found');
+        }
         return order;
       } catch (error) {
         throw error;
@@ -36,6 +39,7 @@ export class PaymentService {
           orderId:id
         }
       })
+     
       return payment;
     } catch (error) {
       console.log(error.code);
