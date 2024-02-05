@@ -15,9 +15,19 @@ const Layout: React.FC<DashboardProps> = ({ children }) => {
     <>
       <div className="bg-gray-50">
         <Header />
+<<<<<<< HEAD:frontendecommerce/src/pages/dashboard/layout.tsx
+        <Mobile />
+        
+=======
         {/* <Mobile /> */}
+>>>>>>> b23c1f996c6e628f75f0d5f1885c0c8fc90d78dc:frontendecommerce/src/components/layout/layout.tsx
         <Sidebar />
+       
         <Main>{children}</Main>
+       
+        
+  
+      
       </div>
     </>
   );

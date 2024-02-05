@@ -2,6 +2,8 @@ import LayoutHome from '@/components/layout/layoutHome';
 import { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement } from '@/redux/features/cart/cartSlice';
+import Stripe from '../payments/Stripe';
+import PayPalComponent from '../payments/paypal';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -111,9 +113,8 @@ const Cart = () => {
                         .toFixed(2)}
                     </span>
                   </div>
-                  <button className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">
-                    Checkout
-                  </button>
+                  <PayPalComponent/>
+                  <Stripe />
                 </div>
               </div>
             </div>
