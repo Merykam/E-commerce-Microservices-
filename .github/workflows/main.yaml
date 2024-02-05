@@ -13,7 +13,7 @@ on:
 jobs:
   build-and-push-service-authentification:
     runs-on: ubuntu-latest
-    if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-authentification')
+    if: github.ref_name == 'main' || contains(github.ref_name, 'service-authentification')
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -23,7 +23,12 @@ jobs:
           node-version: '20.10.0'
       - name: Install dependencies
         run: npm install
-
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: AKIA5RGPWXNPTLMQ4HEA
+          aws-secret-access-key: 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
+          aws-region: eu-north-1
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -31,9 +36,42 @@ jobs:
           aws-secret-access-key: b4B4YyBJ6sdvHY5gqIbuYrKRHj8pY0AOp7Bj56Im
           aws-region: eu-north-1
 
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: true
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+          REPOSITORY: service-authentification
+        working-directory: apps/service-authentification
+        run: |
+          docker build -t $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG -f Dockerfile ../../
+          docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: apps/service-authentification/task-definition-service-auth-revision1.json
+          container-name: image-service-auth-container
+          image: ${{env.ECR_REGISTRY}}/${{env.REPOSITORY}}:${{env.IMAGE_TAG}}
+
+      - name: Deploy to Amazon ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: service-service-auth
+          cluster: cluster-service-authentification
+          wait-for-service-stability: true
+
   build-and-push-service-cart:
     runs-on: ubuntu-latest
-    if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-cart')
+    if: github.ref_name == 'main' || contains(github.ref_name, 'service-cart')
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -43,6 +81,12 @@ jobs:
           node-version: '20.10.0'
       - name: Install dependencies
         run: npm install
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: AKIA5RGPWXNPTLMQ4HEA
+          aws-secret-access-key: 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
+          aws-region: eu-north-1
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -60,8 +104,8 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
-          REPOSITORY: service-authentification
-        working-directory: apps/service-authentification
+          REPOSITORY: service-cart
+        working-directory: apps/service-cart
         run: |
           docker build -t $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG -f Dockerfile ../../
           docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -83,10 +127,9 @@ jobs:
       #     cluster: cluster-service-cart
       #     wait-for-service-stability: true
 
-
   build-and-push-service-order:
     runs-on: ubuntu-latest
-    if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-order')
+    if: github.ref_name == 'main' || contains(github.ref_name, 'service-order')
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -123,7 +166,7 @@ jobs:
 
   build-and-push-service-payment:
     runs-on: ubuntu-latest
-    if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-payment')
+    if: github.ref_name == 'main' || contains(github.ref_name, 'service-payment')
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -136,7 +179,7 @@ jobs:
 
   build-and-push-service-product:
     runs-on: ubuntu-latest
-    if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'service-product')
+    if: github.ref_name == 'main' || contains(github.ref_name, 'service-product')
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -149,7 +192,7 @@ jobs:
 
   build-and-push-frontend:
     runs-on: ubuntu-latest
-    if: github.ref_name == 'dev' || github.ref_name == 'main' || contains(github.ref_name, 'frontend')
+    if: github.ref_name == 'main' || contains(github.ref_name, 'frontend')
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
