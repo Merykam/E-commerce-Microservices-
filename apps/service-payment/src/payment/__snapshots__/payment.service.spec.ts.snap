@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentService createPayment should log an error if an exception occurs during payment creation 1`] = `
+[MockFunction] {
+  "calls": [
+    [
+      "An error occurred during payment creation",
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;

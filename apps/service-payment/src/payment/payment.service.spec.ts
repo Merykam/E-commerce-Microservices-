@@ -60,4 +60,45 @@ describe('PaymentService', () => {
     //   await expect(service.findPaymentByOrderId(orderId)).rejects.toThrow();
     // });
   });
+
+  describe('createPayment', () => {
+    it('should log an error if an exception occurs during payment creation', async () => {
+      // Arrange
+      const order = { id: 1, cart: { totalprice: 100 } };
+      const methodPayment = 'credit card';
+      const errorMessage = 'An error occurred during payment creation';
+    
+      // Mock the Prisma payment.create method to throw an error
+      jest.spyOn(service.prisma.payment, 'create').mockRejectedValueOnce(new Error(errorMessage));
+    
+      // Spy on the console.log method
+      const consoleSpy = jest.spyOn(console, 'log');
+    
+      // Act
+      await service.createPayment(order, methodPayment);
+    
+      // Assert
+      expect(consoleSpy).toMatchSnapshot();
+    });
+    
+
+    it('should log an error if an exception occurs during payment creation', async () => {
+      // Arrange
+      const order = { id: 1, cart: { totalprice: 100 } };
+      const methodPayment = 'credit card';
+      const errorMessage = 'An error occurred during payment creation';
+
+      // Mock the Prisma payment.create method to throw an error
+      jest.spyOn(service.prisma.payment, 'create').mockRejectedValueOnce(new Error(errorMessage));
+
+      // Spy on the console.log method
+      const consoleSpy = jest.spyOn(console, 'log');
+
+      // Act
+      await service.createPayment(order, methodPayment);
+
+      // Assert
+      expect(consoleSpy).toHaveBeenCalledWith(errorMessage);
+    });
+  });
 });
