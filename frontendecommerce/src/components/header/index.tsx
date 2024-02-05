@@ -12,7 +12,7 @@ const header = () => {
               href="#"
               aria-label="Brand"
             >
-              Brand
+              Ecommerce
             </a>
           </div>
 

@@ -12,12 +12,12 @@ RUN npm run build
 
 FROM node:20.10.0 as Production
 
-WORKDIR /apps/service-cart
+WORKDIR /apps/service-payment
 
 COPY package*.json ./
 
 RUN npm install --only=production
 
-COPY --from=Developpment /apps/service-cart/dist ./dist
+COPY --from=Developpment /apps/service-payment/dist ./dist
 
 CMD ["node", "dist/main"]

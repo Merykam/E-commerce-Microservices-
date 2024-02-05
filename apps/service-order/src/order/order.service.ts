@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { OrderDTO, UpdateOrderDTO } from './DTO';
 
@@ -74,7 +74,9 @@ export class OrderService {
       });
       return updatedOrder;
     } catch (error) {
-      throw new InternalServerErrorException('Error while updating the order');
+      throw error.code == 'P2025' 
+      ?  new NotFoundException('Order Not Found')
+      :  new InternalServerErrorException('Error while updating the order')
     }
   }
 }
