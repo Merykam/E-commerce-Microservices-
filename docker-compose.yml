@@ -33,6 +33,25 @@ services:
     build:
       context: .
       dockerfile: apps/service-payment/Dockerfile
+    env_file:
+      - ./apps/service-payment/.env
     ports:
       - '3004:3004'
+  postgres:
+    image: postgres
+    ports:
+    - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: servicepayment
+      volumes:
+        ./db-data/product-db:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+    - "5050:80"
    

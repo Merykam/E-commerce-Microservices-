@@ -1,6 +1,6 @@
 FROM node:20.10.0 as Developpment
 
-WORKDIR /service-cart
+WORKDIR /apps/service-cart
 
 COPY package*.json ./
 
