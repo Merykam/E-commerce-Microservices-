@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: apps/service-cart/Dockerfile
+    env_file:
+      - ./apps/service-cart/src/config/database/prisma/.env
     ports:
       - '9000:9000'
   service-authentification:
@@ -24,7 +26,7 @@ services:
       context: .
       dockerfile: apps/service-order/Dockerfile
     ports:
-      - '8080:8080'
+      - '4000:4000'
   mongodb:
     image: mongo:latest
     ports:
@@ -33,6 +35,36 @@ services:
     build:
       context: .
       dockerfile: apps/service-payment/Dockerfile
+    env_file:
+      - ./apps/service-payment/.env
     ports:
       - '3004:3004'
+  postgres:
+    image: postgres
+    ports:
+    - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: servicepayment
+      volumes:
+        ./db-data/product-db:/var/lib/postgresql/data
+
+  postgres-cart:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: rachid
+      POSTGRES_DB: service-cart
+    volumes:
+      - ./db-data/cart-db:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+    - "5050:80"
    

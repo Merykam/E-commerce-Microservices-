@@ -24,8 +24,8 @@ async paypalPayment(orderId: number,order:any) {
           "payment_method": "paypal",
         },
         "redirect_urls": {
-          "return_url": `http://localhost:3003/payment/success?orderId=${orderId}`,
-          "cancel_url": "http://localhost:3003/payment/cancel",
+          "return_url": `http://localhost:3004/payment/success?orderId=${orderId}`,
+          "cancel_url": "http://localhost:3004/payment/cancel",
         },
         "transactions": [{
           // "item_list": {
