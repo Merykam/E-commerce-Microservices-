@@ -27,6 +27,10 @@ jobs:
         # test
         # - name: Run tests
         #   run: npm test
+      - name: Debug AWS credentials
+        run: |
+          echo "ACCESSKEY: $ACCESSKEY"
+          echo "SECRETKEY: $SECRETKEY"
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
