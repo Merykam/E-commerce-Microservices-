@@ -1,17 +1,17 @@
 import { Category } from "../schemas/product.schema";
-import {IsNotEmpty} from "class-validator"
+// import {IsNotEmpty} from "class-validator"
 
 export class UpdateProductDto {
-    @IsNotEmpty()
+    // @IsNotEmpty()
     readonly name : string;
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     readonly description : string;
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     readonly price : number;
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     readonly category : Category;
 
 }

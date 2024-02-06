@@ -10,4 +10,3 @@ COPY . .
 EXPOSE 3003
 
 CMD [ "npm", "run", "service-product" ]
-
