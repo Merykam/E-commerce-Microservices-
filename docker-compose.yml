@@ -33,6 +33,8 @@ services:
     build:
       context: .
       dockerfile: apps/service-payment/Dockerfile
+    env_file:
+      - ./apps/service-payment/.env
     ports:
       - '3004:3004'
   postgres:

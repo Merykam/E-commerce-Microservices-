@@ -4,7 +4,17 @@ WORKDIR /apps/service-payment
 
 COPY package*.json ./
 
+COPY apps/service-payment/prisma ./prisma
+
+
+
 RUN npm install
+RUN npm install prisma
+RUN npx prisma migrate
+RUN npx prisma generate
+RUN npm install prisma --save-dev
+RUN npx prisma migrate
+RUN npm install @prisma/client
 
 COPY . .
  
