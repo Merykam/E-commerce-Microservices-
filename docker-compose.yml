@@ -24,7 +24,7 @@ services:
       context: .
       dockerfile: apps/service-order/Dockerfile
     ports:
-      - '8080:8080'
+      - '4000:4000'
   mongodb:
     image: mongo:latest
     ports:

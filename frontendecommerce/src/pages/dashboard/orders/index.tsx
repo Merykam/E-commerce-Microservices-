@@ -27,7 +27,7 @@ const orders = () => {
       </h1>
       <Table
         data={orders}
-        fields={['id', 'quantity', 'totalPrice', 'status', 'paid']}
+        fields={['id', 'name', 'quantity', 'price', 'status', 'event']}
       ></Table>
     </Dashboard>
   );
