@@ -21,8 +21,11 @@
     "@tabler/icons": "^2.46.0",
     "axios": "^1.6.5",
     "dotenv": "^16.4.1",
+<<<<<<< HEAD
     "jest": "^29.7.0",
     "joi": "^17.12.1",
+=======
+>>>>>>> bbddfafb0404ea17ae8a1bef17930d74015f05ca
     "material-ui-popup-state": "^5.0.10",
     "next": "14.0.4",
     "nodemon": "^3.0.2",

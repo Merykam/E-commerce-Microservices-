@@ -24,7 +24,7 @@ const Products = () => {
                   className="flex items-end justify-end h-56 w-full bg-cover"
                   // style="background-image: url('')"
                   style={{
-                    backgroundImage: `url(${product?.image})`,
+                    backgroundImage: `url(https://pngimg.com/d/iphone_14_PNG19.png)`,
                   }}
                 >
                   <button

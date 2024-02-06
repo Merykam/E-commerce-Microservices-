@@ -29,3 +29,10 @@ services:
     image: mongo:latest
     ports:
       - '27017:27017'
+  service-payment:
+    build:
+      context: .
+      dockerfile: apps/service-payment/Dockerfile
+    ports:
+      - '3004:3004'
+   
