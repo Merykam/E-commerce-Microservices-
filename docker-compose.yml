@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: apps/service-cart/Dockerfile
+    env_file:
+      - ./apps/service-cart/src/config/database/prisma/.env
     ports:
       - '9000:9000'
   service-authentification:
@@ -47,6 +49,17 @@ services:
       POSTGRES_DB: servicepayment
       volumes:
         ./db-data/product-db:/var/lib/postgresql/data
+
+  postgres-cart:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: rachid
+      POSTGRES_DB: service-cart
+    volumes:
+      - ./db-data/cart-db:/var/lib/postgresql/data
   pgadmin:
     image: dpage/pgadmin4
     environment:
