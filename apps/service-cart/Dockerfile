@@ -1,12 +1,10 @@
-FROM node:20.10.0 as Developpment
+FROM node:20.10.0 as Development
 
-WORKDIR /apps/service-cart
+WORKDIR /service-cart
 
 COPY package*.json ./
+COPY apps/service-payment/prisma ./prisma
 
-COPY apps/service-cart/prisma ./prisma
-
-RUN npm install
 RUN npm install
 RUN npm install prisma
 RUN npx prisma migrate
@@ -17,13 +15,8 @@ RUN npm install @prisma/client
 
 COPY . .
 
-RUN npm run build
-
-COPY . .
- 
-RUN npm run build service-payment
+RUN npm run build service-cart
 
 EXPOSE 9000
 
 CMD ["npm", "run", "service-cart"]
-
