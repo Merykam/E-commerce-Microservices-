@@ -18,6 +18,7 @@
     "service-authentification": "nest start --watch service-authentification",
     "start:dev service-authentification": "nest start --watch service-authentification",
     "service-product": "nest start --watch service-product",
+    "start:dev service-payment": "nest start --watch service-payment",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/apps/micro-service-ecommerce/main",
     "start:prod service-cart": "node dist/apps/service-cart/main",

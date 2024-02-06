@@ -4,7 +4,7 @@ const PayPalComponent = () => {
   const [product,setProduct] =useState({name:"React from FB",price:10,productBy:"facebook"})
   const initiatePayment = async () => {
     try {
-      const response = await fetch('http://localhost:3003/payment/paypal', {
+      const response = await fetch('http://localhost:3004/payment/paypal', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
