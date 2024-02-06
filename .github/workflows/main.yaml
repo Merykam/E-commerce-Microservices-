@@ -169,7 +169,7 @@ jobs:
           node-version: '20.10.0'
       - name: Install dependencies
         run: npm install
-      -name: test
+      - name: test
         run: npm test payment.service.spec.ts
   build-and-push-service-product:
     runs-on: ubuntu-latest
