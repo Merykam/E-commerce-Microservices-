@@ -20,6 +20,7 @@
     "service-product": "nest start --watch service-product",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/apps/micro-service-ecommerce/main",
+    "start:prod service-cart": "node dist/apps/service-cart/main",
     "start:prod authentification": "node dist/apps/service-authentification/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",

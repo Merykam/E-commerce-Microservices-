@@ -3,22 +3,30 @@ FROM node:20.10.0 as Developpment
 WORKDIR /service-cart
 
 COPY package*.json ./
+
+COPY apps/service-cart/prisma ./prisma
+
 RUN npm install
 
 COPY . .
 
 RUN npm run build
 
+# Generate Prisma Client
+RUN npx prisma generate
 
-FROM node:20.10.0 as Production
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-WORKDIR /service-cart
+RUN npx prisma migrate dev --name init
 
-COPY package*.json ./
 
-RUN npm install --only=production
 
-COPY --from=Developpment /apps/service-cart/dist ./dist
+# FROM node:20.10.0 as Production
 
-CMD ["node", "dist/main"]
+# WORKDIR /service-cart
+
+# COPY package*.json ./
+
+# RUN npm install --only=production
+
+# COPY --from=Developpment /apps/service-cart/dist ./dist
+
+# CMD ["node", "service-cart/main"]
