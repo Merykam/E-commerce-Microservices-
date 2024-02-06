@@ -29,8 +29,8 @@ jobs:
         #   run: npm test
       - name: Debug AWS credentials
         run: |
-          echo "ACCESSKEY: $ACCESSKEY"
-          echo "SECRETKEY: $SECRETKEY"
+          echo "ACCESSKEY: ${{env.ACCESSKEY}}"
+          echo "SECRETKEY: ${{SECRETKEY}}"
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -186,8 +186,9 @@ jobs:
         with:
           node-version: '20.11.0'
       - name: Install dependencies
-        run: npm install
-         # test
+        run:
+          npm install
+          # test
       - name: Run tests
         run: npm test service-product
       - name: Configure AWS credentials
@@ -241,4 +242,3 @@ jobs:
           node-version: '20.10.0'
       - name: Install dependencies
         run: npm install
-
