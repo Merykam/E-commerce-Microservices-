@@ -7,7 +7,7 @@ on:
       - '*service-cart*'
       - '*service-order*'
       - '*service-payment*'
-      - '*service-product*'
+      - '*product*'
       - '*frontend*'
 
 jobs:
@@ -172,7 +172,7 @@ jobs:
 
   build-and-push-service-product:
     runs-on: ubuntu-latest
-    if: github.ref_name == 'main' || contains(github.ref_name, 'service-product')
+    if: github.ref_name == 'main' || contains(github.ref_name, 'product')
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
