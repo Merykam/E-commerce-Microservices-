@@ -7,7 +7,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+RUN npm run build service-cart
 
 
 FROM node:20.10.0 as Production
