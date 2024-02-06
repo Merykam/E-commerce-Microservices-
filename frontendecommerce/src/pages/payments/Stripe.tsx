@@ -16,7 +16,7 @@ const Stripe = () => {
   const headers={
     "Content-Type":"application/json"
   }
-  return fetch(`http://localhost:3003/payment/stripe`,{
+  return fetch(`http://localhost:3004/payment/stripe`,{
     method:"POST",
     headers,
     body:JSON.stringify(body)

@@ -42,7 +42,7 @@ const Cart = () => {
                             <div className="flex items-center">
                               <img
                                 className="h-16 w-16 mr-4"
-                                src={product.image}
+                                src="https://pngimg.com/d/iphone_14_PNG19.png"
                                 alt="Product image"
                               />
                               <span className="font-semibold">
@@ -113,7 +113,7 @@ const Cart = () => {
                         .toFixed(2)}
                     </span>
                   </div>
-                  <PayPalComponent/>
+                  <PayPalComponent />
                   <Stripe />
                 </div>
               </div>

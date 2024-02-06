@@ -7,8 +7,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build service-product
-
 EXPOSE 3003
 
 CMD [ "npm", "run", "service-product" ]
+
