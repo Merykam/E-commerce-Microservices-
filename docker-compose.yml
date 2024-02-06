@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  service-cart:
+    build:
+      context: .
+      dockerfile: apps/service-cart/Dockerfile
+    ports:
+      - '9000:9000'
+  service-authentification:
+    build:
+      context: .
+      dockerfile: apps/service-authentification/Dockerfile
+    ports:
+      - '3001:3001'
+  service-product:
+    build:
+      context: .
+      dockerfile: apps/service-product/Dockerfile
+    ports:
+      - '3003:3003'
+  service-order:
+    build:
+      context: .
+      dockerfile: apps/service-order/Dockerfile
+    ports:
+      - '8080:8080'
+  mongodb:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+  service-payment:
+    build:
+      context: .
+      dockerfile: apps/service-payment/Dockerfile
+    env_file:
+      - ./apps/service-payment/.env
+    ports:
+      - '3004:3004'
+  postgres:
+    image: postgres
+    ports:
+    - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: servicepayment
+      volumes:
+        ./db-data/product-db:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+    - "5050:80"
+   
