@@ -17,17 +17,17 @@ export class PaymentController {
 
     const  order = await this.paymentService.getOrder(orderId);
     if(!order){
-      return res.redirect('http://localhost:3000/payments/fail?message=Order not found')
-      // throw new Error('Order not found')
+      // return res.redirect('http://localhost:3000/payments/fail?message=Order not found')
+      throw new Error('Order not found')
     }
     if(order.status !=='Pending'){
-      return res.redirect('http://localhost:3000/payments/fail?message=Order has been paid')
-      // throw new Error('Order has been paid')
+      // return res.redirect('http://localhost:3000/payments/fail?message=Order has been paid')
+      throw new Error('Order has been paid')
     }
     const payment = await this.paymentService.findPaymentByOrderId(orderId);
     if(payment){
-      return res.redirect('http://localhost:3000/payments/fail?message=Order has been paid')
-      // throw new Error('Order has been paid')
+      // return res.redirect('http://localhost:3000/payments/fail?message=Order has been paid')
+      throw new Error('Order has been paid')
     }
     const amount=Math.round( order.cart.totalprice * 100);
     const {id} = await this.stripService.createStripePaymentMethod(token.id);
