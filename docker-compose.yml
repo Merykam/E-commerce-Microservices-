@@ -42,11 +42,13 @@ services:
     ports:
     - '5432:5432'
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: servicepayment
+      POSTGRES_USER: ${POSTGRES_USER} 
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB} 
       volumes:
         ./db-data/product-db:/var/lib/postgresql/data
+    env_file:
+      - ./apps/service-order/.env
   pgadmin:
     image: dpage/pgadmin4
     environment:

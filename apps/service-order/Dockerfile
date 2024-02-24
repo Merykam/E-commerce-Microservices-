@@ -5,6 +5,8 @@ WORKDIR /apps/service-order
 COPY package*.json ./
 
 COPY apps/service-order/prisma ./prisma
+COPY apps/service-order/src/prisma ./src/prisma
+
 
 RUN npm install
 RUN npm install prisma
